@@ -1,6 +1,7 @@
 package com.example.rcciitapp.ui.home
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -70,3 +71,4 @@ fun HomeScreen(
         Navigation(modifier = Modifier, navController = navController)
     }
 }
+
