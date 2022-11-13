@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import com.example.rcciitapp.ui.admin.AdminAuth
 
 @Composable
 fun Navigation(
@@ -56,6 +57,9 @@ fun Navigation(
                     Text(text = "Gallery")
                 }
             }
+        }
+        composable(route = Destination.AdminLogin.path) {
+            AdminAuth()
         }
     }
 }

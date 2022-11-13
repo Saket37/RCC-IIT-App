@@ -1,9 +1,5 @@
 package com.example.rcciitapp.navigation
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.ui.graphics.vector.ImageVector
 import com.example.rcciitapp.R
 
 sealed class Destination(
@@ -48,4 +44,6 @@ sealed class Destination(
         icon = R.drawable.ic_outline_notice,
         selectedIcon = R.drawable.ic_filled_notice
     )
+
+    object AdminLogin : Destination(path = "adminLogin", isRootDestination = false)
 }

@@ -1,23 +1,15 @@
 package com.example.rcciitapp.ui.home
 
 import android.annotation.SuppressLint
-import android.content.res.Resources.Theme
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.rcciitapp.R
@@ -73,14 +65,22 @@ fun HomeScreen(
                 }
             })
         },
-        drawerContent = { DrawerContent(modifier = Modifier.fillMaxWidth()) },
+        drawerContent = {
+            //TODO pop backstack and move Admin Login as separate Activity
+            DrawerContent(
+                modifier = Modifier.fillMaxWidth(),
+                onNavigate = {
+                    navController.navigate(it.path)
+                    coroutineScope.launch { drawerState.close() }
+                })
+        },
 
         ) {
         Navigation(modifier = Modifier, navController = navController)
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview
 @Composable
 fun HomeScreenPreview() {
     HomeScreen()

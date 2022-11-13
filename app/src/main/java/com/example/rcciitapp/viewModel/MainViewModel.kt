@@ -1,4 +1,4 @@
-package com.example.rcciitapp
+package com.example.rcciitapp.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
