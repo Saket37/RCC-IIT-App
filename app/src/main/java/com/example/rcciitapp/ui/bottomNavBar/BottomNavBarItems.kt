@@ -3,6 +3,7 @@ package com.example.rcciitapp.ui.bottomNavBar
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.painterResource
 import com.example.rcciitapp.navigation.Destination
 import java.util.*
 
@@ -33,7 +34,7 @@ fun buildNavigationBarItems(
             },
             icon = {
                 it.icon?.let { image ->
-                    Icon(imageVector = image, contentDescription = null)
+                    Icon(painter = painterResource(id = image), contentDescription = null)
                 }
             }, selected = currentDestination.path == it.path,
             onCLick = { onNavigate(it) }

@@ -1,10 +1,15 @@
 package com.example.rcciitapp.navigation
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.outlined.Home
 import androidx.compose.ui.graphics.vector.ImageVector
+import com.example.rcciitapp.R
 
 sealed class Destination(
     val path: String,
-    val icon: ImageVector? = null,
+    val icon: Int? = null,
+    val selectedIcon: Int? = null,
     val isRootDestination: Boolean = true,
 ) {
     companion object {
@@ -19,9 +24,28 @@ sealed class Destination(
         }
     }
 
-    object Home : Destination("home")
-    object RCC : Destination("rcc")
-    object Faculty : Destination("faculty")
-    object Gallery : Destination("gallery")
-    object Notice : Destination("notice")
+    object Home : Destination("rccHome")
+    object RCC : Destination(
+        path = "home",
+        icon = R.drawable.ic_outline_home,
+        selectedIcon = R.drawable.ic_filled_home
+    )
+
+    object Faculty : Destination(
+        path = "faculty",
+        icon = R.drawable.ic_outline_faculty,
+        selectedIcon = R.drawable.ic_filled_faculty
+    )
+
+    object Gallery : Destination(
+        path = "gallery",
+        icon = R.drawable.ic_outline_gallery,
+        selectedIcon = R.drawable.ic_filled_gallery
+    )
+
+    object Notice : Destination(
+        path = "notice",
+        icon = R.drawable.ic_outline_notice,
+        selectedIcon = R.drawable.ic_filled_notice
+    )
 }
