@@ -1,6 +1,7 @@
 package com.example.rcciitapp.ui.home
 
 import android.annotation.SuppressLint
+import android.content.res.Resources.Theme
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,7 +11,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -46,14 +51,16 @@ fun HomeScreen(
         modifier = Modifier,
         scaffoldState = scaffoldState,
         topBar = {
-            TopAppBar(title = { Text(text = "RCC") }, navigationIcon = {
-                IconButton(onClick = { coroutineScope.launch { drawerState.open() } }) {
-                    Icon(
-                        imageVector = Icons.Default.Menu,
-                        contentDescription = stringResource(id = R.string.cd_open_menu)
-                    )
-                }
-            })
+            TopAppBar(
+                title = { Text(text = "RCC") },
+                navigationIcon = {
+                    IconButton(onClick = { coroutineScope.launch { drawerState.open() } }) {
+                        Icon(
+                            imageVector = Icons.Default.Menu,
+                            contentDescription = stringResource(id = R.string.cd_open_menu)
+                        )
+                    }
+                })
         },
         bottomBar = {
             BottomNavBar(currentDestination = currentDestination, onNavigate = {
@@ -66,9 +73,15 @@ fun HomeScreen(
                 }
             })
         },
-        drawerContent = { DrawerContent(modifier = Modifier.fillMaxWidth()) }
-    ) {
+        drawerContent = { DrawerContent(modifier = Modifier.fillMaxWidth()) },
+
+        ) {
         Navigation(modifier = Modifier, navController = navController)
     }
 }
 
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun HomeScreenPreview() {
+    HomeScreen()
+}
