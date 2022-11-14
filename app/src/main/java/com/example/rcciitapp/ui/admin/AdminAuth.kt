@@ -33,8 +33,7 @@ fun AdminAuthContent(
 ) {
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .padding(bottom = 75.dp),
+            .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         if (adminAuthState.isLoading) {

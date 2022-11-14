@@ -37,13 +37,16 @@ fun AuthForm(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(bottom = 48.dp)
                 .padding(horizontal = 32.dp), elevation = 5.dp
         ) {
             Column(
-                modifier = Modifier.padding(16.dp),
+                modifier = Modifier
+                    .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 val passwordFocusRequester = FocusRequester()
+                Spacer(modifier = Modifier.height(32.dp))
                 EmailInput(
                     modifier = Modifier.fillMaxWidth(),
                     email = email ?: "",
@@ -68,7 +71,7 @@ fun AuthForm(
                         modifier = Modifier.fillMaxWidth()
                     )
                 }
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(16.dp))
                 AuthButton(
                     authenticationMode = authenticationMode,
                     onAuthenticate = { onAuthenticate() },
