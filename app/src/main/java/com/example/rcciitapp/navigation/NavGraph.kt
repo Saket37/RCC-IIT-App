@@ -58,8 +58,8 @@ fun Navigation(
                 }
             }
         }
-        composable(route = Destination.AdminLogin.path) {
+        /*composable(route = Destination.AdminLogin.path) {
             AdminAuth()
-        }
+        }*/
     }
 }

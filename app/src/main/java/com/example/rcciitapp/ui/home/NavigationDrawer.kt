@@ -1,5 +1,6 @@
 package com.example.rcciitapp.ui.home
 
+import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
@@ -8,16 +9,19 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.rcciitapp.R
 import com.example.rcciitapp.navigation.Destination
+import com.example.rcciitapp.ui.admin.AdminAuthActivity
 
 @Composable
 fun ColumnScope.DrawerContent(
     modifier: Modifier = Modifier,
     onNavigate: (destination: Destination) -> Unit,
 ) {
+    val context = LocalContext.current
     // TODO - Add image, admin login and other tabs
     DrawerHeader()
     Spacer(modifier = Modifier.height(12.dp))
@@ -25,7 +29,9 @@ fun ColumnScope.DrawerContent(
         modifier = modifier
             .align(alignment = Alignment.CenterHorizontally)
             .padding(horizontal = 36.dp),
-        onClick = { onNavigate(Destination.AdminLogin) }) {
+        onClick = {
+            context.startActivity(Intent(context, AdminAuthActivity::class.java))
+        }) {
         Image(painter = painterResource(id = R.drawable.ic_admin_login), contentDescription = null)
         Spacer(modifier = Modifier.width(12.dp))
         Text(text = "Admin Login")

@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -23,6 +24,7 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
+    val localContext = LocalContext.current
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scaffoldState = rememberScaffoldState(drawerState)
     val navController = rememberNavController()
@@ -72,7 +74,8 @@ fun HomeScreen(
                 onNavigate = {
                     navController.navigate(it.path)
                     coroutineScope.launch { drawerState.close() }
-                })
+                },
+            )
         },
 
         ) {

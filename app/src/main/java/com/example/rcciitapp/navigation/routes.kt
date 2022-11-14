@@ -15,6 +15,7 @@ sealed class Destination(
                 Faculty.path -> Faculty
                 Gallery.path -> Gallery
                 Notice.path -> Notice
+
                 else -> Home
             }
         }
@@ -45,5 +46,5 @@ sealed class Destination(
         selectedIcon = R.drawable.ic_filled_notice
     )
 
-    object AdminLogin : Destination(path = "adminLogin", isRootDestination = false)
+    //object AdminLogin : Destination(path = "adminLogin", isRootDestination = false)
 }
