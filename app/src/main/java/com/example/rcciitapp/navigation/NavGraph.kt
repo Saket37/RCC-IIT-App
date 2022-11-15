@@ -11,7 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import com.example.rcciitapp.ui.admin.AdminAuth
+import com.example.rcciitapp.ui.rccHome.RccHome
 
 @Composable
 fun Navigation(
@@ -22,13 +22,10 @@ fun Navigation(
     NavHost(navController = navController, startDestination = startDestination) {
         navigation(startDestination = Destination.RCC.path, route = Destination.Home.path) {
             composable(route = Destination.RCC.path) {
-                Box(
+                RccHome(
                     modifier = Modifier
-                        .fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(text = "RCC HOME")
-                }
+                        .fillMaxSize()
+                )
             }
             composable(route = Destination.Notice.path) {
                 Box(

@@ -3,26 +3,26 @@ package com.example.rcciitapp.ui.admin
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.rcciitapp.data.remote.entity.AdminAuthState
 import com.example.rcciitapp.utils.AdminAuthEvent
 import com.example.rcciitapp.viewModel.AuthViewModel
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun AdminAuth() {
-    val authViewModel: AuthViewModel = viewModel()
+    val authViewModel: AuthViewModel = hiltViewModel()
     AdminAuthContent(
         modifier = Modifier.fillMaxWidth(),
-        adminAuthState = authViewModel.authUiState.collectAsState().value,
+        adminAuthState = authViewModel.authUiState.collectAsStateWithLifecycle().value,
         handleEvent = authViewModel::handleAuthEvent
     )
 }

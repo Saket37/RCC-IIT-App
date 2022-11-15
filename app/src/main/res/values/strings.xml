@@ -27,4 +27,22 @@
     <string name="error_title">Whoops</string>
 
     <string name="error_action">OK</string>
+
+    <string name="about_rcc_title">About</string>
+    <string name="rcc_vision_title">Vision</string>
+    <string name="rcc_mission_title">Mission</string>
+    <string name="about_rcc_para1">"
+        RCC Institute of Information Technology (RCCIIT) was set up in 1999 by the erstwhile Regional Computer Centre (RCC), Calcutta (in JU) as a unique joint venture of NIC, Ministry of Communication &amp; IT, Govt. of India and Dept. of Higher Education, Govt. of West Bengal. In 2003 the lead role of management of RCCIIT was transferred to the State Govt. from Govt. of India.
+    </string>
+
+    <string name="about_rcc_para2">"Since then RCCIIT is the only engineering college in the State which is run by an autonomous Society (RCC Institute of Technology) formed by the State Govt. Known as one of the oldest engineering colleges in the State it now ranks within top 10 private and govt. engineering colleges. Besides 8 govt. engineering colleges established and funded by the State, RCCIIT is the only self-financing engineering college for which the Board of Management (BOM) as well as the Governing Body (BOG) are constituted directly by the State Govt. with senior officials of Higher Education Dept, Professors and Administrators of JU and WBJEEB and eminent academicians and industry persons. The State has made significant contribution in terms of land and fund for development of the institute since inception. Situated in a well connected location of mega-metro Kolkata, spread on a sprawling 4.63 acres of land leased to the college by the State Govt., it has best-in-class infrastructure and teaching-learning resources. State Govt. pay structure for the faculty (and staff) and ample scope for their research and self-development ensures their dedicated service for the students.</string>
+
+    <string name="rcc_vision">To develop RCCIIT as one of the most advanced technical institutes of the State by imparting technical knowledge and skill of the highest quality through the use of state-of-the-art technological tools and thereby producing technical manpower fit for industries, research organizations and academia and by establishing the culture of interdisciplinary research and innovation (to cater to the social needs) in a congenial, inclusive and transparent work environment created by unbiased and visionary leadership and participative management.</string>
+
+    <string name="mission_1">To produce well trained good human beings with ethics and values, good interpersonal skill, team spirit and leadership capability and concern for the society and environment</string>
+    <string name="mission_2">To produce technical professionals with fundamental and cutting edge technological knowledge and skill, a flair for innovation and design, ability for analysis and application to meet the demands of real-life projects and challenges of research</string>
+    <string name="mission_3">To select, groom and retain talented, qualified and committed faculty and staff under a fair and transparent HR policy</string>
+    <string name="mission_4">To develop state-of-the-art infrastructure and learning resources for pursuing unhindered research and learning practices.</string>
+    <string name="mission_5">To create congenial and inclusive work environment for all with zero tolerance on gender bias and ragging or harassment of any kind</string>
+
 </resources>

@@ -1,15 +1,24 @@
 package com.example.rcciitapp.ui.home
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -18,13 +27,29 @@ import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.navigation.Navigation
 import com.example.rcciitapp.ui.bottomNavBar.BottomNavBar
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
-    val localContext = LocalContext.current
+    val bottomBarHeight = 48.dp
+    val bottomBarHeightPx = with(LocalDensity.current) { bottomBarHeight.roundToPx().toFloat() }
+    val bottomBarOffsetHeightPx = remember { mutableStateOf(0f) }
+
+    /*val nestedScrollConnection = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+                val delta = available.y
+                val newOffset = bottomBarOffsetHeightPx.value + delta
+                bottomBarOffsetHeightPx.value =
+                    newOffset.coerceIn(-bottomBarHeightPx, 0f)
+                return Offset.Zero
+            }
+        }
+    }*/
+
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scaffoldState = rememberScaffoldState(drawerState)
     val navController = rememberNavController()
@@ -42,11 +67,22 @@ fun HomeScreen(
     val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
-        modifier = Modifier,
         scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
-                title = { Text(text = "RCC") },
+                title = {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start
+                    ) {
+                        Image(
+                            modifier = Modifier.size(48.dp),
+                            painter = painterResource(id = R.drawable.ic_app_bar_icon),
+                            contentDescription = null
+                        )
+                        Text(text = "RCC IIT")
+                    }
+                },
                 navigationIcon = {
                     IconButton(onClick = { coroutineScope.launch { drawerState.open() } }) {
                         Icon(
@@ -57,15 +93,23 @@ fun HomeScreen(
                 })
         },
         bottomBar = {
-            BottomNavBar(currentDestination = currentDestination, onNavigate = {
-                navController.navigate(it.path) {
-                    popUpTo(navController.graph.findStartDestination().id) {
-                        saveState = true
-                    }
-                    launchSingleTop = true
-                    restoreState = true
-                }
-            })
+            BottomAppBar(
+                modifier = Modifier
+                    .height(bottomBarHeight)
+                    .offset { IntOffset(x = 0, y = -bottomBarOffsetHeightPx.value.roundToInt()) },
+            ) {
+                BottomNavBar(
+                    currentDestination = currentDestination,
+                    onNavigate = {
+                        navController.navigate(it.path) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    })
+            }
         },
         drawerContent = {
             //TODO pop backstack and move Admin Login as separate Activity
@@ -78,8 +122,11 @@ fun HomeScreen(
             )
         },
 
-        ) {
-        Navigation(modifier = Modifier, navController = navController)
+        ) { innerPadding ->
+        Box(modifier = Modifier.padding(0.dp, 0.dp, 0.dp, innerPadding.calculateBottomPadding())) {
+            Navigation(modifier = Modifier, navController = navController)
+
+        }
     }
 }
 
