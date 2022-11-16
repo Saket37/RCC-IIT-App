@@ -66,34 +66,37 @@ fun HomeScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Start
-                    ) {
-                        Image(
-                            modifier = Modifier.size(48.dp),
-                            painter = painterResource(id = R.drawable.ic_app_bar_icon),
-                            contentDescription = null
-                        )
-                        Text(text = "RCC IIT")
-                    }
-                },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        if (drawerState.isClosed) {
-                            coroutineScope.launch { drawerState.open() }
-                        } else {
-                            coroutineScope.launch { drawerState.close() }
+            // TODO Hiding App Bar takes time. Should be fast
+            if (drawerState.isClosed) {
+                TopAppBar(
+                    title = {
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Start
+                        ) {
+                            Image(
+                                modifier = Modifier.size(48.dp),
+                                painter = painterResource(id = R.drawable.ic_app_bar_icon),
+                                contentDescription = null
+                            )
+                            Text(text = "RCC IIT")
                         }
-                    }) {
-                        Icon(
-                            imageVector = Icons.Default.Menu,
-                            contentDescription = stringResource(id = R.string.cd_open_menu)
-                        )
-                    }
-                })
+                    },
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            /*if (drawerState.isClosed) {*/
+                            coroutineScope.launch { drawerState.open() }
+                            /* } else {
+                                 coroutineScope.launch { drawerState.close() }
+                             }*/
+                        }) {
+                            Icon(
+                                imageVector = Icons.Default.Menu,
+                                contentDescription = stringResource(id = R.string.cd_open_menu)
+                            )
+                        }
+                    })
+            }
         },
         bottomBar = {
             BottomAppBar(
@@ -115,7 +118,8 @@ fun HomeScreen(
             }
         },
         /*drawerContent = {
-            //TODO pop backstack and move Admin Login as separate Activity
+        // Migrated to material3. hence, have to move drawer
+            //TODO pop backstack
             DrawerContent(
                 modifier = Modifier.fillMaxWidth(),
                 onNavigate = {
@@ -129,9 +133,7 @@ fun HomeScreen(
         ModalNavigationDrawer(
             drawerState = drawerState,
             drawerContent = {
-
                 ModalDrawerSheet() {
-                    Spacer(Modifier.height(12.dp))
                     DrawerContent(
                         modifier = Modifier.fillMaxWidth(),
                         onNavigate = {
@@ -141,7 +143,6 @@ fun HomeScreen(
                     )
                 }
             },
-            gesturesEnabled = false,
             scrimColor = scrimColor
         ) {
             Box(

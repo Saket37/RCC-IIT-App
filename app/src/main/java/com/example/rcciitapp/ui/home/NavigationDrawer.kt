@@ -24,8 +24,7 @@ fun DrawerContent(
     onNavigate: (destination: Destination) -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .background(MaterialTheme.colorScheme.inverseOnSurface)
+
     ) {
         val context = LocalContext.current
         // TODO - Add image, admin login and other tabs
