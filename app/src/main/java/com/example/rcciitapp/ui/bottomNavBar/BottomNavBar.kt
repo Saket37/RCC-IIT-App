@@ -1,10 +1,10 @@
 package com.example.rcciitapp.ui.bottomNavBar
 
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -19,7 +19,7 @@ fun BottomNavBar(
     currentDestination: Destination,
     onNavigate: (destination: Destination) -> Unit,
 ) {
-    BottomNavigation(modifier = modifier) {
+    NavigationBar(modifier = modifier) {
         listOf(
             Destination.RCC,
             Destination.Notice,
@@ -27,7 +27,7 @@ fun BottomNavBar(
             Destination.Faculty
         ).forEach {
             val selectedTab = currentDestination.path == it.path
-            BottomNavigationItem(
+            NavigationBarItem(
                 selected = selectedTab,
                 onClick = { onNavigate(it) },
                 icon = {

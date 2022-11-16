@@ -3,21 +3,19 @@ package com.example.rcciitapp.ui.home
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.*
+import androidx.compose.material3.DrawerDefaults.scrimColor
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
-import androidx.compose.ui.input.nestedscroll.NestedScrollSource
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -27,8 +25,8 @@ import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.navigation.Navigation
 import com.example.rcciitapp.ui.bottomNavBar.BottomNavBar
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 
+@OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(
@@ -51,7 +49,7 @@ fun HomeScreen(
     }*/
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    val scaffoldState = rememberScaffoldState(drawerState)
+    val scaffoldState = rememberScrollState()
     val navController = rememberNavController()
     val navBackStackEntry = navController.currentBackStackEntryAsState()
     val currentDestination by remember(navBackStackEntry) {
@@ -67,7 +65,6 @@ fun HomeScreen(
     val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
-        scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
                 title = {
@@ -84,7 +81,13 @@ fun HomeScreen(
                     }
                 },
                 navigationIcon = {
-                    IconButton(onClick = { coroutineScope.launch { drawerState.open() } }) {
+                    IconButton(onClick = {
+                        if (drawerState.isClosed) {
+                            coroutineScope.launch { drawerState.open() }
+                        } else {
+                            coroutineScope.launch { drawerState.close() }
+                        }
+                    }) {
                         Icon(
                             imageVector = Icons.Default.Menu,
                             contentDescription = stringResource(id = R.string.cd_open_menu)
@@ -95,8 +98,8 @@ fun HomeScreen(
         bottomBar = {
             BottomAppBar(
                 modifier = Modifier
-                    .height(bottomBarHeight)
-                    .offset { IntOffset(x = 0, y = -bottomBarOffsetHeightPx.value.roundToInt()) },
+                /*.height(bottomBarHeight)
+                .offset { IntOffset(x = 0, y = -bottomBarOffsetHeightPx.value.roundToInt()) },*/
             ) {
                 BottomNavBar(
                     currentDestination = currentDestination,
@@ -111,7 +114,7 @@ fun HomeScreen(
                     })
             }
         },
-        drawerContent = {
+        /*drawerContent = {
             //TODO pop backstack and move Admin Login as separate Activity
             DrawerContent(
                 modifier = Modifier.fillMaxWidth(),
@@ -120,13 +123,40 @@ fun HomeScreen(
                     coroutineScope.launch { drawerState.close() }
                 },
             )
-        },
+        },*/
 
-        ) { innerPadding ->
-        Box(modifier = Modifier.padding(0.dp, 0.dp, 0.dp, innerPadding.calculateBottomPadding())) {
-            Navigation(modifier = Modifier, navController = navController)
+    ) { innerPadding ->
+        ModalNavigationDrawer(
+            drawerState = drawerState,
+            drawerContent = {
 
+                ModalDrawerSheet() {
+                    Spacer(Modifier.height(12.dp))
+                    DrawerContent(
+                        modifier = Modifier.fillMaxWidth(),
+                        onNavigate = {
+                            navController.navigate(it.path)
+                            coroutineScope.launch { drawerState.close() }
+                        },
+                    )
+                }
+            },
+            gesturesEnabled = false,
+            scrimColor = scrimColor
+        ) {
+            Box(
+                modifier = Modifier.padding(
+                    0.dp,
+                    60.dp,
+                    0.dp,
+                    innerPadding.calculateBottomPadding()
+                )
+            ) {
+                Navigation(modifier = Modifier, navController = navController)
+
+            }
         }
+
     }
 }
 

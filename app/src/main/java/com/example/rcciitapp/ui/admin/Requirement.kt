@@ -1,9 +1,9 @@
 package com.example.rcciitapp.ui.admin
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
@@ -22,8 +22,8 @@ import com.example.rcciitapp.data.remote.entity.PasswordRequirements
 @Composable
 fun Requirement(modifier: Modifier = Modifier, message: String, satisfied: Boolean) {
     val tint = if (satisfied) {
-        MaterialTheme.colors.primary
-    } else MaterialTheme.colors.onSurface.copy(alpha = 0.4f)
+        MaterialTheme.colorScheme.primary
+    } else MaterialTheme.colorScheme.onSurface.copy(alpha = 0.4f)
 
     val requirementStatus = if (satisfied) {
         stringResource(

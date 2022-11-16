@@ -2,8 +2,9 @@ package com.example.rcciitapp.ui.admin
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,7 +39,7 @@ fun AuthForm(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 48.dp)
-                .padding(horizontal = 32.dp), elevation = 5.dp
+                .padding(horizontal = 32.dp), elevation = CardDefaults.cardElevation(5.dp)
         ) {
             Column(
                 modifier = Modifier

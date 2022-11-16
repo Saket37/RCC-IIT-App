@@ -2,10 +2,12 @@ package com.example.rcciitapp.ui.home
 
 import android.content.Intent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.Divider
-import androidx.compose.material.Text
+import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,36 +19,56 @@ import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.ui.admin.AdminAuthActivity
 
 @Composable
-fun ColumnScope.DrawerContent(
+fun DrawerContent(
     modifier: Modifier = Modifier,
     onNavigate: (destination: Destination) -> Unit,
 ) {
-    val context = LocalContext.current
-    // TODO - Add image, admin login and other tabs
-    DrawerHeader()
-    Spacer(modifier = Modifier.height(12.dp))
-    Button(
-        modifier = modifier
-            .align(alignment = Alignment.CenterHorizontally)
-            .padding(horizontal = 36.dp),
-        onClick = {
-            context.startActivity(Intent(context, AdminAuthActivity::class.java))
-        }) {
-        Image(painter = painterResource(id = R.drawable.ic_admin_login), contentDescription = null)
-        Spacer(modifier = Modifier.width(12.dp))
-        Text(text = "Admin Login")
-    }
-    Divider(
+    Column(
         modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-    )
+            .background(MaterialTheme.colorScheme.inverseOnSurface)
+    ) {
+        val context = LocalContext.current
+        // TODO - Add image, admin login and other tabs
+        DrawerHeader()
+        Spacer(modifier = Modifier.height(12.dp))
+        Button(
+            modifier = modifier
+                .padding(horizontal = 36.dp),
+            onClick = {
+                context.startActivity(Intent(context, AdminAuthActivity::class.java))
+            }) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_admin_login),
+                contentDescription = null
+            )
+            Spacer(modifier = Modifier.width(12.dp))
+            Text(text = "Admin Login")
+        }
+        Divider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+        )
 
 
-    /*GlideImage(
-        model = R.drawable.ic_drawer_image,
-        contentDescription = null,
-        modifier = modifier.size(50.dp)
+        /*GlideImage(
+            model = R.drawable.ic_drawer_image,
+            contentDescription = null,
+            modifier = modifier.size(50.dp)
+        )*/
+
+    }
+    /*Layout(
+        modifier = Modifier
+            .background(MaterialTheme.colorScheme.inverseOnSurface)
+            .padding(16.dp),
+        content = {
+
+        }, measurePolicy = { measurables, constraints ->
+            lateinit var headerMeasurable: Measurable
+            lateinit var contentMeasurable: Measurable
+            measurables.forEach { }
+        }
     )*/
 
 }

@@ -1,8 +1,9 @@
 package com.example.rcciitapp.ui.admin
 
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -16,13 +17,15 @@ fun ToggleAuthenticationMode(
     authenticationMode: AuthenticationMode,
     toggleAuthentication: () -> Unit
 ) {
-    Surface(modifier = modifier, elevation = 8.dp) {
-        TextButton(onClick = {toggleAuthentication()}) {
-            Text(text = stringResource(
-                id = if (authenticationMode == AuthenticationMode.SIGN_IN)
-                    R.string.action_need_account
-                else R.string.action_already_have_account
-            ))
+    Surface(modifier = modifier, shadowElevation = 8.dp) {
+        TextButton(onClick = { toggleAuthentication() }) {
+            Text(
+                text = stringResource(
+                    id = if (authenticationMode == AuthenticationMode.SIGN_IN)
+                        R.string.action_need_account
+                    else R.string.action_already_have_account
+                )
+            )
         }
     }
 }
