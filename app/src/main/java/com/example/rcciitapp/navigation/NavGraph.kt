@@ -36,7 +36,7 @@ fun Navigation(
                     Text(text = "Notice")
                 }
             }
-            composable(route = Destination.Faculty.path) {
+            composable(route = Destination.Courses.path) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize(),

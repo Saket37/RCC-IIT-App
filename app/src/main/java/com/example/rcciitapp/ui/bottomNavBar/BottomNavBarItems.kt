@@ -22,7 +22,7 @@ fun buildNavigationBarItems(
         Destination.RCC,
         Destination.Notice,
         Destination.Gallery,
-        Destination.Faculty
+        Destination.Courses
     ).map {
         BottomNavBarItems(
             label = {

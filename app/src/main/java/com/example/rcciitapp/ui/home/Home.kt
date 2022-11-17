@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
@@ -16,6 +15,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -25,6 +25,7 @@ import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.navigation.Navigation
 import com.example.rcciitapp.ui.bottomNavBar.BottomNavBar
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -32,7 +33,7 @@ import kotlinx.coroutines.launch
 fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
-    val bottomBarHeight = 48.dp
+    val bottomBarHeight = 86.dp
     val bottomBarHeightPx = with(LocalDensity.current) { bottomBarHeight.roundToPx().toFloat() }
     val bottomBarOffsetHeightPx = remember { mutableStateOf(0f) }
 
@@ -49,6 +50,7 @@ fun HomeScreen(
     }*/
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+    val topBarState = rememberTopAppBarState()
     val scaffoldState = rememberScrollState()
     val navController = rememberNavController()
     val navBackStackEntry = navController.currentBackStackEntryAsState()
@@ -68,34 +70,32 @@ fun HomeScreen(
         topBar = {
             // TODO Hiding App Bar takes time. Should be fast
             if (drawerState.isClosed) {
-                TopAppBar(
-                    title = {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Start
-                        ) {
-                            Image(
-                                modifier = Modifier.size(48.dp),
-                                painter = painterResource(id = R.drawable.ic_app_bar_icon),
-                                contentDescription = null
-                            )
-                            Text(text = "RCC IIT")
-                        }
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = {
-                            /*if (drawerState.isClosed) {*/
-                            coroutineScope.launch { drawerState.open() }
-                            /* } else {
-                                 coroutineScope.launch { drawerState.close() }
-                             }*/
-                        }) {
-                            Icon(
-                                imageVector = Icons.Default.Menu,
-                                contentDescription = stringResource(id = R.string.cd_open_menu)
-                            )
-                        }
-                    })
+                TopAppBar(title = {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Image(
+                            modifier = Modifier.size(48.dp),
+                            painter = painterResource(id = R.drawable.ic_app_bar_icon),
+                            contentDescription = null
+                        )
+                        Text(text = "RCC IIT")
+                    }
+                }, navigationIcon = {
+                    IconButton(onClick = {
+                        /*if (drawerState.isClosed) {*/
+                        coroutineScope.launch { drawerState.open() }
+                        /* } else {
+                             coroutineScope.launch { drawerState.close() }
+                         }*/
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.Menu,
+                            contentDescription = stringResource(id = R.string.cd_open_menu)
+                        )
+                    }
+                })
             }
         },
         bottomBar = {
@@ -104,17 +104,15 @@ fun HomeScreen(
                 /*.height(bottomBarHeight)
                 .offset { IntOffset(x = 0, y = -bottomBarOffsetHeightPx.value.roundToInt()) },*/
             ) {
-                BottomNavBar(
-                    currentDestination = currentDestination,
-                    onNavigate = {
-                        navController.navigate(it.path) {
-                            popUpTo(navController.graph.findStartDestination().id) {
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
+                BottomNavBar(currentDestination = currentDestination, onNavigate = {
+                    navController.navigate(it.path) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
                         }
-                    })
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                })
             }
         },
         /*drawerContent = {
@@ -131,8 +129,7 @@ fun HomeScreen(
 
     ) { innerPadding ->
         ModalNavigationDrawer(
-            drawerState = drawerState,
-            drawerContent = {
+            drawerState = drawerState, drawerContent = {
                 ModalDrawerSheet() {
                     DrawerContent(
                         modifier = Modifier.fillMaxWidth(),
@@ -142,15 +139,11 @@ fun HomeScreen(
                         },
                     )
                 }
-            },
-            scrimColor = scrimColor
+            }, scrimColor = scrimColor
         ) {
             Box(
                 modifier = Modifier.padding(
-                    0.dp,
-                    60.dp,
-                    0.dp,
-                    innerPadding.calculateBottomPadding()
+                    0.dp, 60.dp, 0.dp, innerPadding.calculateBottomPadding()
                 )
             ) {
                 Navigation(modifier = Modifier, navController = navController)

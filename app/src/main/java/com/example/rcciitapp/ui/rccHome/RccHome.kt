@@ -30,6 +30,9 @@ fun RccHome(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Top,
     ) {
         item {
+            ImageSlider()
+        }
+        item {
             AboutRccTitle(title = R.string.about_rcc_title)
             AboutRCCParagraph(
                 modifier = Modifier.padding(horizontal = 16.dp),

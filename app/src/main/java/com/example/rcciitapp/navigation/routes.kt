@@ -12,7 +12,7 @@ sealed class Destination(
         fun fromString(route: String): Destination {
             return when (route) {
                 RCC.path -> RCC
-                Faculty.path -> Faculty
+                Courses.path -> Courses
                 Gallery.path -> Gallery
                 Notice.path -> Notice
 
@@ -28,8 +28,8 @@ sealed class Destination(
         selectedIcon = R.drawable.ic_filled_home
     )
 
-    object Faculty : Destination(
-        path = "faculty",
+    object Courses : Destination(
+        path = "courses",
         icon = R.drawable.ic_outline_faculty,
         selectedIcon = R.drawable.ic_filled_faculty
     )
