@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
+import com.example.rcciitapp.ui.courses.Course
 import com.example.rcciitapp.ui.rccHome.RccHome
 
 @Composable
@@ -42,7 +43,7 @@ fun Navigation(
                         .fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Faculty")
+                    Course()
                 }
             }
             composable(route = Destination.Gallery.path) {

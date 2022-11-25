@@ -45,4 +45,9 @@
     <string name="mission_4">To develop state-of-the-art infrastructure and learning resources for pursuing unhindered research and learning practices.</string>
     <string name="mission_5">To create congenial and inclusive work environment for all with zero tolerance on gender bias and ragging or harassment of any kind</string>
 
+    <string name="load_error">Can\'t update latest news</string>
+
+    <string name="doj">DOJ : </string>
+    <string name="email">Email : </string>
+
 </resources>

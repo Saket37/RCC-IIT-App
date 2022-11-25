@@ -1,0 +1,65 @@
+[
+  {
+    "course_id": 1,
+    "course_name": "Computer Science & Engineering (CSE)",
+    "branch": "B.Tech",
+    "duration": "4 Years",
+    "intake": 120
+  },
+  {
+    "course_id": 2,
+    "course_name": "Electronics & Communication Engineering (ECE)",
+    "branch": "B.Tech",
+    "duration": "4 Years",
+    "intake": 120
+  },
+  {
+    "course_id": 3,
+    "course_name": "Information Technology (IT)",
+    "branch": "B.Tech",
+    "duration": "4 Years",
+    "intake": 120
+  },
+  {
+    "course_id": 4,
+    "course_name": "Electrical Engineering (EE)",
+    "branch": "B.Tech",
+    "duration": "4 Years",
+    "intake": 120
+  },
+  {
+    "course_id": 5,
+    "course_name": "APPLIED ELECTRONICS & INSTRUMENTATION Engineering (AEIE)",
+    "branch": "B.Tech",
+    "duration": "4 Years",
+    "intake": 120
+  },
+  {
+    "course_id": 6,
+    "course_name": "Computer Science & Engineering",
+    "branch": "M.Tech",
+    "duration": "2 Years",
+    "intake": 18
+  },
+  {
+    "course_id": 7,
+    "course_name": "Computer Science & Engineering (Artificial intelligence)",
+    "branch": "M.Tech",
+    "duration": "2 Years",
+    "intake": 18
+  },
+  {
+    "course_id": 8,
+    "course_name": "VLSI and Microelectronics",
+    "branch": "M.Tech",
+    "duration": "2 Years",
+    "intake": 12
+  },
+  {
+    "course_id": 9,
+    "course_name": "Master in Computer Application (MCA)",
+    "branch": "MCA",
+    "duration": "2 Years",
+    "intake": 60
+  }
+]
