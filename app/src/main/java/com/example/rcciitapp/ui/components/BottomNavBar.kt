@@ -1,4 +1,4 @@
-package com.example.rcciitapp.ui.bottomNavBar
+package com.example.rcciitapp.ui.components
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -22,7 +22,7 @@ fun BottomNavBar(
     NavigationBar(modifier = modifier) {
         listOf(
             Destination.RCC,
-            Destination.Notice,
+            Destination.Update,
             Destination.Gallery,
             Destination.Courses
         ).forEach {
@@ -60,7 +60,7 @@ fun BottomNavBar(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+@Preview
 @Composable
 fun BottomBarPreview() {
     BottomNavBar(currentDestination = Destination.RCC, onNavigate = {})

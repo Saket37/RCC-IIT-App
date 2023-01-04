@@ -17,7 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.rememberNavController
 import com.example.rcciitapp.navigation.Navigation
-import com.example.rcciitapp.ui.home.HomeScreen
+import com.example.rcciitapp.ui.home.RccApp
 import com.example.rcciitapp.ui.theme.RCCIITAppTheme
 import com.example.rcciitapp.viewModel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
                     //LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                     val navController = rememberNavController()
                     Navigation(navController = navController)
-                    HomeScreen()
+                    RccApp()
                 }
             }
         }

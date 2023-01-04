@@ -30,7 +30,7 @@ fun FacultyCard(
         modifier = modifier
             .fillMaxWidth()
             .padding(top = 12.dp, start = 12.dp, end = 12.dp, bottom = 12.dp),
-        elevation = CardDefaults.cardElevation(12.dp)
+        elevation = CardDefaults.cardElevation(16.dp)
     ) {
         Row(
             modifier = Modifier
@@ -79,11 +79,13 @@ fun FacultyDetail(
         Spacer(modifier = Modifier.height(6.dp))
         Text(text = buildAnnotatedString {
             append(stringResource(R.string.doj))
+            append(" ")
             append(doj)
         })
         Spacer(modifier = Modifier.height(6.dp))
         Text(text = buildAnnotatedString {
             append(stringResource(id = R.string.email))
+            append(" ")
             append(email)
         })
     }
@@ -108,7 +110,7 @@ fun FacultyProfileImagePreview() {
     FacultyProfileImage(image = R.drawable.cse_minakshi)
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = true, )
 @Composable
 fun FacultyCardPreview() {
     FacultyCard(

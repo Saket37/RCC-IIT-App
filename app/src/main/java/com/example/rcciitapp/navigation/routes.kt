@@ -14,7 +14,7 @@ sealed class Destination(
                 RCC.path -> RCC
                 Courses.path -> Courses
                 Gallery.path -> Gallery
-                Notice.path -> Notice
+                Update.path -> Update
 
                 else -> Home
             }
@@ -40,8 +40,8 @@ sealed class Destination(
         selectedIcon = R.drawable.ic_filled_gallery
     )
 
-    object Notice : Destination(
-        path = "notice",
+    object Update : Destination(
+        path = "updates",
         icon = R.drawable.ic_outline_notice,
         selectedIcon = R.drawable.ic_filled_notice
     )

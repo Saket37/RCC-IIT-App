@@ -13,6 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
 import com.example.rcciitapp.ui.courses.Course
 import com.example.rcciitapp.ui.rccHome.RccHome
+import com.example.rcciitapp.ui.updates.Updates
 
 @Composable
 fun Navigation(
@@ -28,13 +29,13 @@ fun Navigation(
                         .fillMaxSize()
                 )
             }
-            composable(route = Destination.Notice.path) {
+            composable(route = Destination.Update.path) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Notice")
+                    Updates()
                 }
             }
             composable(route = Destination.Courses.path) {

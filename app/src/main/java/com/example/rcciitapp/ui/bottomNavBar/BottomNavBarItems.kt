@@ -20,7 +20,7 @@ fun buildNavigationBarItems(
 ): List<BottomNavBarItems> {
     return listOf(
         Destination.RCC,
-        Destination.Notice,
+        Destination.Update,
         Destination.Gallery,
         Destination.Courses
     ).map {

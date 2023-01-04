@@ -5,10 +5,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.rcciitapp.R
@@ -49,8 +49,8 @@ fun ImageSlider(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(16.dp),
-            activeColor = Color.White,
-            inactiveColor = Color.Green
+            activeColor = MaterialTheme.colorScheme.secondary,
+            inactiveColor = MaterialTheme.colorScheme.onSecondaryContainer
         )
 
         LaunchedEffect(key1 = pagerState.currentPage) {

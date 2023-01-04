@@ -61,7 +61,7 @@ val course4 =
 val course5 =
     Course(
         id = "5",
-        courseName = "APPLIED ELECTRONICS & INSTRUMENTATION Engineering (AEIE)",
+        courseName = "Applied Electronics & Instrumentation Engineering (AEIE)",
         branch = "B.Tech",
         duration = "4 Years ",
         intake = "30"
@@ -77,7 +77,7 @@ val course6 =
 val course7 =
     Course(
         id = "7",
-        courseName = "Computer Science & Engineering (Artificial intelligence)",
+        courseName = "Computer Science & Engineering (Artificial Intelligence)",
         branch = "M.Tech",
         duration = "2 Years ",
         intake = "18"
