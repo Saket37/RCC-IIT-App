@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.TabRow
+import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -55,7 +56,7 @@ fun UpdateScreenContent(
                 color = MaterialTheme.colorScheme.secondary, thickness = 2.dp
             )
         }, indicator = { tabPositions ->
-            androidx.compose.material.TabRowDefaults.Indicator(
+            TabRowDefaults.Indicator(
                 Modifier.tabIndicatorOffset(tabPositions[selectedTabIndex]),
                 color = MaterialTheme.colorScheme.secondaryContainer,
                 height = 2.dp

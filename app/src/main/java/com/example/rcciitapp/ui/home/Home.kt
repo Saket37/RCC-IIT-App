@@ -18,6 +18,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.navigation.Navigation
 import com.example.rcciitapp.ui.components.BottomNavBar
+import com.example.rcciitapp.ui.components.ConnectivityStatus
 import com.example.rcciitapp.ui.components.DrawerContent
 import com.example.rcciitapp.ui.components.RccTopAppBar
 import com.example.rcciitapp.ui.theme.RCCIITAppTheme
@@ -25,7 +26,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RccApp() {
+fun RccApp(isConnected: Boolean) {
     RCCIITAppTheme {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
@@ -48,7 +49,9 @@ fun RccApp() {
         ) {
             HomeScreen(
                 navController = navController,
-                openDrawer = { coroutineScope.launch { drawerState.open() } })
+                openDrawer = { coroutineScope.launch { drawerState.open() } },
+                isConnected = isConnected
+            )
         }
     }
 }
@@ -60,6 +63,7 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     openDrawer: () -> Unit,
+    isConnected: Boolean
 ) {
     val bottomBarHeight = 86.dp
     val bottomBarHeightPx = with(LocalDensity.current) { bottomBarHeight.roundToPx().toFloat() }
@@ -121,11 +125,18 @@ fun HomeScreen(
         Box(
             modifier = Modifier
                 .padding(
-                    0.dp, innerPadding.calculateTopPadding(), 0.dp, innerPadding.calculateBottomPadding()
+                    0.dp,
+                    innerPadding.calculateTopPadding(),
+                    0.dp,
+                    innerPadding.calculateBottomPadding()
                 )
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
         ) {
-            Navigation(modifier = Modifier, navController = navController)
+            Column() {
+                ConnectivityStatus(isConnected = isConnected)
+                Navigation(modifier = Modifier, navController = navController)
+
+            }
 
         }
 
@@ -136,5 +147,6 @@ fun HomeScreen(
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(openDrawer = {})
+    HomeScreen(openDrawer = {}, isConnected = false)
 }
+

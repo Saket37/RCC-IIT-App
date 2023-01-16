@@ -1,0 +1,6 @@
+Add navigation to Gmaps for the college location.(showing map is optional)
+Impl the updates section. college may provide the api.
+Impl the gallery section.
+Add contact us at the bottom of Nav Drawer(opens a separate screen with hidden bottom nav, when pressed back open home screen).
+Impl  pref datastore to handle the admin login. saves the isAdminLoggedIn, key and userName. Also, provides the function to edit for admin for the app.
+show No internet over bottom nav
