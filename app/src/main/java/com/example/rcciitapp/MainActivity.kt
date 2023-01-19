@@ -17,6 +17,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.example.rcciitapp.navigation.Navigation
 import com.example.rcciitapp.observeconnectivity.ConnectivityObserver
@@ -28,16 +30,17 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    // TODO move connectivityObserver to viewModel
     private lateinit var connectivityObserver: ConnectivityObserver
-
     private val viewModel: MainViewModel by viewModels()
 
+    @OptIn(ExperimentalLifecycleComposeApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         connectivityObserver = NetworkConnectivityObserver(applicationContext)
         // TODO Add texts in splash screen
         installSplashScreen().apply {
-            setKeepOnScreenCondition { viewModel.isLoading.value }
+            setKeepOnScreenCondition { viewModel.homeUiState.value.isLoading }
         }
         setContent {
             RCCIITAppTheme {
@@ -53,7 +56,7 @@ class MainActivity : ComponentActivity() {
                     //LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                     val navController = rememberNavController()
                     Navigation(navController = navController)
-                    RccApp(isConnected = isConnected)
+                    RccApp(isConnected = viewModel.homeUiState.collectAsStateWithLifecycle().value.isConnectivityAvailable)
                 }
             }
         }
