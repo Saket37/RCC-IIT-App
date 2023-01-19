@@ -12,8 +12,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
@@ -21,8 +19,6 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.example.rcciitapp.navigation.Navigation
-import com.example.rcciitapp.observeconnectivity.ConnectivityObserver
-import com.example.rcciitapp.observeconnectivity.NetworkConnectivityObserver
 import com.example.rcciitapp.ui.home.RccApp
 import com.example.rcciitapp.ui.theme.RCCIITAppTheme
 import com.example.rcciitapp.viewModel.MainViewModel
@@ -30,14 +26,11 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    // TODO move connectivityObserver to viewModel
-    private lateinit var connectivityObserver: ConnectivityObserver
     private val viewModel: MainViewModel by viewModels()
 
     @OptIn(ExperimentalLifecycleComposeApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        connectivityObserver = NetworkConnectivityObserver(applicationContext)
         // TODO Add texts in splash screen
         installSplashScreen().apply {
             setKeepOnScreenCondition { viewModel.homeUiState.value.isLoading }
@@ -49,9 +42,6 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val status by connectivityObserver.observe()
-                        .collectAsState(initial = ConnectivityObserver.Status.Available)
-                    val isConnected: Boolean = status === ConnectivityObserver.Status.Available
 
                     //LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                     val navController = rememberNavController()

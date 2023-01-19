@@ -2,10 +2,18 @@ package com.example.rcciitapp.observeconnectivity
 
 import kotlinx.coroutines.flow.Flow
 
-interface ConnectivityObserver {
-    fun observe(): Flow<Status>
 
-    enum class Status {
-        Available, Lost
-    }
+/**
+ * A utility for observing the connectivity status
+ */
+interface ConnectivityObserver {
+    /**
+     * Gives the realtime updates of a [ConnectionState]
+     */
+    val connectionState: Flow<ConnectionState>
+
+    /**
+     * Retrieves the current [ConnectionState]
+     */
+    val currentConnectionState: ConnectionState
 }

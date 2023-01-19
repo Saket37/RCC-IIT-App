@@ -2,6 +2,8 @@ package com.example.rcciitapp.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rcciitapp.observeconnectivity.ConnectionState
+import com.example.rcciitapp.observeconnectivity.ConnectivityObserver
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -13,7 +15,7 @@ data class HomeUiState(
 )
 
 @HiltViewModel
-class MainViewModel @Inject constructor() :
+class MainViewModel @Inject constructor(private val connectivityObserver: ConnectivityObserver) :
     ViewModel() {
     private val _homeUiState = MutableStateFlow(HomeUiState())
     val homeUiState = _homeUiState.asStateFlow()
@@ -21,17 +23,18 @@ class MainViewModel @Inject constructor() :
     init {
         viewModelScope.launch {
             //delay(3000)
-            _homeUiState.value = _homeUiState.value.copy(isLoading = false)
+            _homeUiState.value =
+                _homeUiState.value.copy(isLoading = false)
+            observeConnectivity()
         }
-        //observeConnectivity()
     }
 
 
-   /* private fun observeConnectivity() {
+    private fun observeConnectivity() {
         connectivityObserver.connectionState
             .distinctUntilChanged()
             .map { it === ConnectionState.Available }
             .onEach { _homeUiState.value = _homeUiState.value.copy(isConnectivityAvailable = it) }
             .launchIn(viewModelScope)
-    }*/
+    }
 }
