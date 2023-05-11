@@ -3,6 +3,7 @@ package com.example.rcciitapp.ui.courses
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
@@ -18,6 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.rcciitapp.R
 import com.example.rcciitapp.model.Faculty
 
@@ -30,7 +32,8 @@ fun FacultyCard(
         modifier = modifier
             .fillMaxWidth()
             .padding(top = 12.dp, start = 12.dp, end = 12.dp, bottom = 12.dp),
-        elevation = CardDefaults.cardElevation(16.dp)
+        elevation = CardDefaults.cardElevation(16.dp),
+        shape = RoundedCornerShape(16.dp)
     ) {
         Row(
             modifier = Modifier
@@ -68,22 +71,29 @@ fun FacultyDetail(
     email: String
 ) {
     Column(
-        horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.Center
+        modifier = Modifier.padding(6.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         Row() {
-            Text(text = name, fontWeight = FontWeight.Bold, textAlign = TextAlign.Center)
+            Text(
+                text = name,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                fontSize = 12.sp
+            )
             Spacer(modifier = Modifier.width(6.dp))
-            Text(text = degree)
+            Text(text = degree, fontSize = 12.sp)
         }
-        Text(text = designation)
+        Text(text = designation, fontSize = 12.sp)
         Spacer(modifier = Modifier.height(6.dp))
-        Text(text = buildAnnotatedString {
+        Text(fontSize = 12.sp, text = buildAnnotatedString {
             append(stringResource(R.string.doj))
             append(" ")
             append(doj)
         })
         Spacer(modifier = Modifier.height(6.dp))
-        Text(text = buildAnnotatedString {
+        Text(fontSize = 12.sp, text = buildAnnotatedString {
             append(stringResource(id = R.string.email))
             append(" ")
             append(email)
@@ -110,7 +120,7 @@ fun FacultyProfileImagePreview() {
     FacultyProfileImage(image = R.drawable.cse_minakshi)
 }
 
-@Preview(showBackground = true, )
+@Preview(showBackground = true)
 @Composable
 fun FacultyCardPreview() {
     FacultyCard(

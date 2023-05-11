@@ -7,11 +7,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.rcciitapp.ui.courses.Course
+import com.example.rcciitapp.ui.courses.CourseDetailScreen
 import com.example.rcciitapp.ui.rccHome.RccHome
 import com.example.rcciitapp.ui.updates.Updates
 
@@ -44,7 +47,7 @@ fun Navigation(
                         .fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Course()
+                    Course(navController = navController)
                 }
             }
             composable(route = Destination.Gallery.path) {
@@ -54,6 +57,21 @@ fun Navigation(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(text = "Gallery")
+                }
+            }
+            composable(
+                route = Destination.CourseDetails.path +"/{courseId}",
+                arguments = listOf(navArgument("courseId") {
+                    type = NavType.StringType
+                    nullable =false
+                })
+            ) {
+                val courseId = it.arguments?.getString("courseId")
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                ) {
+                    courseId?.let { it1 -> CourseDetailScreen(courseId = it1) }
                 }
             }
         }

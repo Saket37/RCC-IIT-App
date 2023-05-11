@@ -1,5 +1,6 @@
 package com.example.rcciitapp.navigation
 
+import android.util.Log
 import com.example.rcciitapp.R
 
 sealed class Destination(
@@ -17,6 +18,16 @@ sealed class Destination(
                 Update.path -> Update
 
                 else -> Home
+            }
+        }
+    }
+
+    fun withArgs(vararg args: String): String {
+        return buildString {
+            append(path)
+            args.forEach { arg ->
+                append("/$arg")
+                Log.d("COURSE_DETAILS",arg)
             }
         }
     }
@@ -45,6 +56,8 @@ sealed class Destination(
         icon = R.drawable.ic_outline_notice,
         selectedIcon = R.drawable.ic_filled_notice
     )
+
+    object CourseDetails : Destination(path = "course")
 
     //object AdminLogin : Destination(path = "adminLogin", isRootDestination = false)
 }

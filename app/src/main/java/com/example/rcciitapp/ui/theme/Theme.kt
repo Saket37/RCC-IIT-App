@@ -109,8 +109,9 @@ private val LightColorPalette = lightColorScheme(
 
 @Composable
 fun RCCIITAppTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-    val colorScheme = if (darkTheme) DarkColorPalette else LightColorPalette
-       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+
+    val colorScheme =if (darkTheme) DarkColorPalette else LightColorPalette
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val context = LocalContext.current
             if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
         } else {

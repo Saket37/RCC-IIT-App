@@ -135,7 +135,6 @@ fun HomeScreen(
             Column() {
                 ConnectivityStatus(isConnected = isConnected)
                 Navigation(modifier = Modifier, navController = navController)
-
             }
 
         }
