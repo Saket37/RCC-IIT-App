@@ -39,10 +39,9 @@ fun AdminAuthContent(
         if (adminAuthState.isLoading) {
             CircularProgressIndicator()
         } else {
-            AuthForm(authenticationMode = adminAuthState.authenticationMode,
+            AuthForm(
                 email = adminAuthState.email,
                 password = adminAuthState.password,
-                satisfiedRequirements = adminAuthState.passwordRequirements,
                 onEmailChanged = { email ->
                     handleEvent(AdminAuthEvent.EmailChanged(email))
                 },
@@ -51,9 +50,7 @@ fun AdminAuthContent(
                 },
                 onAuthenticate = { handleEvent(AdminAuthEvent.Authenticate) },
                 enableAuthentication = adminAuthState.isFormValid(),
-                onToggleMode = {
-                    handleEvent(AdminAuthEvent.ToggleAuthenticationMode)
-                })
+)
             adminAuthState.error?.let { error ->
                 AuthenticationErrorDialog(
                     error = error,

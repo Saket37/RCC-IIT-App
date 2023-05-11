@@ -6,10 +6,12 @@
     <string name="password_requirement_capital">At least 1 upper-case letter</string>
     <string name="password_requirement_digit">At least 1 digit</string>
 
-    <string name="label_sign_in_to_account">Sign In to your account</string>
+    <string name="label_sign_in_to_account">Sign In to Admin Account</string>
     <string name="label_sign_up_for_account">Sign Up for an account</string>
 
     <string name="label_email">Email Address</string>
+    <string name="label_user">User Name</string>
+
     <string name="label_password">Password</string>
 
     <string name="cd_show_password">Show Password</string>

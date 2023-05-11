@@ -19,7 +19,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
     private val _authUiState = MutableStateFlow(AdminAuthState())
     val authUiState get() = _authUiState
 
-    private fun toggleAuthenticationMode() {
+   /* private fun toggleAuthenticationMode() {
         val authenticationMode = _authUiState.value.authenticationMode
         val newAuthMode = if (authenticationMode == AuthenticationMode.SIGN_IN) {
             AuthenticationMode.SIGN_UP
@@ -27,7 +27,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
             AuthenticationMode.SIGN_IN
         }
         _authUiState.value = _authUiState.value.copy(authenticationMode = newAuthMode)
-    }
+    }*/
 
     private fun updateEmail(email: String) {
         _authUiState.value = _authUiState.value.copy(email = email)
@@ -49,7 +49,7 @@ class AuthViewModel @Inject constructor() : ViewModel() {
     }
 
     private fun updatePassword(password: String) {
-        val requirements = mutableListOf<PasswordRequirements>()
+        /*val requirements = mutableListOf<PasswordRequirements>()
         if (password.length > 7) {
             requirements.add(PasswordRequirements.EIGHT_CHARACTERS)
         }
@@ -58,17 +58,17 @@ class AuthViewModel @Inject constructor() : ViewModel() {
         }
         if (password.any { it.isUpperCase() }) {
             requirements.add(PasswordRequirements.CAPITAL_LETTER)
-        }
+        }*/
 
         _authUiState.value =
-            _authUiState.value.copy(password = password, passwordRequirements = requirements)
+            _authUiState.value.copy(password = password)
     }
 
     fun handleAuthEvent(authEvent: AdminAuthEvent) {
         when (authEvent) {
-            is AdminAuthEvent.ToggleAuthenticationMode -> {
+            /*is AdminAuthEvent.ToggleAuthenticationMode -> {
                 toggleAuthenticationMode()
-            }
+            }*/
             is AdminAuthEvent.EmailChanged -> {
                 updateEmail(authEvent.email)
             }

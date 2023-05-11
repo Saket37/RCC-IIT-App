@@ -5,6 +5,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,11 +24,11 @@ fun EmailInput(
     onNextClicked: () -> Unit,
 ) {
     TextField(value = email ?: "", onValueChange = { onEmailChanged(it) }, label = {
-        Text(text = stringResource(id = R.string.label_email))
+        Text(text = stringResource(id = R.string.label_user))
     }, singleLine = true, leadingIcon = {
-        Icon(imageVector = Icons.Default.Email, contentDescription = null)
+        Icon(imageVector = Icons.Default.Person, contentDescription = null)
     }, keyboardOptions = KeyboardOptions(
-        imeAction = ImeAction.Next, keyboardType = KeyboardType.Email
+        imeAction = ImeAction.Next, keyboardType = KeyboardType.Text
     ), keyboardActions = KeyboardActions(onNext = { onNextClicked() })
     )
 }

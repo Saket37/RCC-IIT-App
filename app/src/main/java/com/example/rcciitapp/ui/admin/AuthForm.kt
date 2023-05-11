@@ -1,7 +1,7 @@
 package com.example.rcciitapp.ui.admin
 
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -12,39 +12,36 @@ import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.rcciitapp.data.remote.entity.AuthenticationMode
-import com.example.rcciitapp.data.remote.entity.PasswordRequirements
 
 @Composable
 fun AuthForm(
     modifier: Modifier = Modifier,
-    authenticationMode: AuthenticationMode,
     email: String?,
     password: String?,
-    satisfiedRequirements: List<PasswordRequirements>,
     onEmailChanged: (email: String) -> Unit,
     onPasswordChanged: (password: String) -> Unit,
     onAuthenticate: () -> Unit,
     enableAuthentication: Boolean,
-    onToggleMode: () -> Unit,
 ) {
     Column(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(32.dp))
-        AuthenticationTitle(authenticationMode = authenticationMode)
+        AuthenticationTitle()
         Spacer(modifier = Modifier.height(40.dp))
         Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 48.dp)
-                .padding(horizontal = 32.dp), elevation = CardDefaults.cardElevation(5.dp)
+                .padding(horizontal = 32.dp),
+            elevation = CardDefaults.cardElevation(6.dp),
+            shape = RoundedCornerShape(16.dp)
         ) {
             Column(
                 modifier = Modifier
                     .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                verticalArrangement = Arrangement.Center,
             ) {
                 val passwordFocusRequester = FocusRequester()
                 Spacer(modifier = Modifier.height(32.dp))
@@ -65,26 +62,18 @@ fun AuthForm(
                 ) {
                     onAuthenticate()
                 }
-                Spacer(modifier = Modifier.height(12.dp))
-                AnimatedVisibility(visible = authenticationMode == AuthenticationMode.SIGN_UP) {
-                    com.example.rcciitapp.ui.admin.PasswordRequirements(
-                        satisfiedRequirements = satisfiedRequirements,
-                        modifier = Modifier.fillMaxWidth()
+
+                Spacer(modifier = Modifier.height(16.dp))
+                Row(modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.End) {
+                    AuthButton(
+                        onAuthenticate = { onAuthenticate() },
+                        enableAuthentication = enableAuthentication
                     )
                 }
+
                 Spacer(modifier = Modifier.height(16.dp))
-                AuthButton(
-                    authenticationMode = authenticationMode,
-                    onAuthenticate = { onAuthenticate() },
-                    enableAuthentication = enableAuthentication
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                ToggleAuthenticationMode(
-                    modifier = Modifier.fillMaxWidth(),
-                    authenticationMode = authenticationMode
-                ) {
-                    onToggleMode()
-                }
+
             }
         }
     }
@@ -96,15 +85,12 @@ fun Preview_AuthenticationForm() {
     MaterialTheme {
         AuthForm(
             modifier = Modifier.fillMaxWidth(),
-            authenticationMode = AuthenticationMode.SIGN_IN,
             email = "contact@gmail.com",
             password = "12345678",
             onEmailChanged = { },
             onPasswordChanged = { },
             onAuthenticate = { },
-            satisfiedRequirements = emptyList(),
             enableAuthentication = true,
-            onToggleMode = {}
         )
     }
 }

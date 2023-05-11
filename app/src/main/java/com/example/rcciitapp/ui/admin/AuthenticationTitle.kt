@@ -11,13 +11,11 @@ import com.example.rcciitapp.data.remote.entity.AuthenticationMode
 
 @Composable
 fun AuthenticationTitle(
-    modifier: Modifier = Modifier, authenticationMode: AuthenticationMode
+    modifier: Modifier = Modifier,
 ) {
-
     Text(
         text = stringResource(
-            if (authenticationMode == AuthenticationMode.SIGN_IN) R.string.label_sign_in_to_account
-            else R.string.label_sign_up_for_account
+            R.string.label_sign_in_to_account
         ), fontSize = 24.sp, fontWeight = FontWeight.Black
     )
 }
