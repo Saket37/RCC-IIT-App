@@ -21,7 +21,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.viewModel.CourseState
 import com.example.rcciitapp.viewModel.CoursesViewModel
-
+/**
+ * Courses Tab View
+ */
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun Course(

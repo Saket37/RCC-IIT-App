@@ -43,9 +43,10 @@ fun RccApp(isConnected: Boolean) {
                             navController.navigate(it.path)
                             coroutineScope.launch { drawerState.close() }
                         },
+                        close = { coroutineScope.launch { drawerState.close() } }
                     )
                 }
-            }, scrimColor = scrimColor, gesturesEnabled = true
+            }, scrimColor = scrimColor, gesturesEnabled = false
         ) {
             HomeScreen(
                 navController = navController,
@@ -65,7 +66,7 @@ fun HomeScreen(
     openDrawer: () -> Unit,
     isConnected: Boolean
 ) {
-    var selectedIndex by remember{ mutableStateOf(0) }
+    var selectedIndex by remember { mutableStateOf(0) }
     val bottomBarHeight = 86.dp
     val bottomBarHeightPx = with(LocalDensity.current) { bottomBarHeight.roundToPx().toFloat() }
     val bottomBarOffsetHeightPx = remember { mutableStateOf(0f) }

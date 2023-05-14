@@ -15,7 +15,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.rcciitapp.data.remote.entity.AdminAuthState
 import com.example.rcciitapp.utils.AdminAuthEvent
 import com.example.rcciitapp.viewModel.AuthViewModel
-
+/**
+ * Admin Authentication
+ * Access to AuthViewModel for handling events and state
+ */
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun AdminAuth() {
