@@ -50,7 +50,7 @@ fun AdminAuthContent(
                 },
                 onAuthenticate = { handleEvent(AdminAuthEvent.Authenticate) },
                 enableAuthentication = adminAuthState.isFormValid(),
-)
+            )
             adminAuthState.error?.let { error ->
                 AuthenticationErrorDialog(
                     error = error,

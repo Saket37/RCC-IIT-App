@@ -2,7 +2,7 @@ package com.example.rcciitapp.utils
 
 sealed class AdminAuthEvent {
 
-    object ToggleAuthenticationMode : AdminAuthEvent()
+    //object ToggleAuthenticationMode : AdminAuthEvent()
 
     class EmailChanged(val email: String) : AdminAuthEvent()
 

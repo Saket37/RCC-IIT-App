@@ -65,6 +65,7 @@ fun HomeScreen(
     openDrawer: () -> Unit,
     isConnected: Boolean
 ) {
+    var selectedIndex by remember{ mutableStateOf(0) }
     val bottomBarHeight = 86.dp
     val bottomBarHeightPx = with(LocalDensity.current) { bottomBarHeight.roundToPx().toFloat() }
     val bottomBarOffsetHeightPx = remember { mutableStateOf(0f) }

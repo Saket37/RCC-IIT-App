@@ -40,7 +40,7 @@ fun rememberTabContent(): List<TabContent> {
     // Pass them to the stateless UpdateScreen using a tabContent.
     val eventSection = TabContent(Sections.Event) {
         // collect event and call the EventListScreen
-        Text(text = "Event")
+        Event()
     }
     val newsSection = TabContent(Sections.News) {
         Text(text = "News")

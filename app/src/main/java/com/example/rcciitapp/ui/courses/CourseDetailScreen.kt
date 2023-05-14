@@ -16,7 +16,7 @@ import com.example.rcciitapp.viewModel.CoursesViewModel
 
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
-fun CourseDetailScreen(modifier: Modifier = Modifier,courseId:String) {
+fun CourseDetailScreen(modifier: Modifier = Modifier, courseId: String) {
     val viewModel: CoursesViewModel = hiltViewModel()
     viewModel.selectCourse(courseId)
     Box(
@@ -37,8 +37,9 @@ fun FacultySection(modifier: Modifier = Modifier, uiState: CourseState) {
             modifier = Modifier
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
-        ){
-        CircularProgressIndicator()}
+        ) {
+            CircularProgressIndicator()
+        }
     } else {
         LazyColumn() {
             if (uiFacultyState != null) {
