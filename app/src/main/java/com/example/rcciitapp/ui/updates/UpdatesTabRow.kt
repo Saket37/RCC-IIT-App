@@ -43,12 +43,11 @@ fun rememberTabContent(): List<TabContent> {
         Event()
     }
     val newsSection = TabContent(Sections.News) {
-        Text(text = "News")
+        News()
 
     }
     val noticeSection = TabContent(Sections.Notice) {
-        Text(text = "Notice")
-
+        Notice()
     }
     return listOf(eventSection, newsSection, noticeSection)
 }

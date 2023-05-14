@@ -27,9 +27,10 @@ fun AuthForm(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(32.dp))
+        //Spacer(modifier = Modifier.height(56.dp))
+        Spacer(modifier = Modifier.height(160.dp))
         AuthenticationTitle()
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(32.dp))
         Card(
             modifier = Modifier
                 .fillMaxWidth()
