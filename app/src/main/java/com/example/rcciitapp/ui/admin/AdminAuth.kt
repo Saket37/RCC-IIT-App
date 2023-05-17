@@ -1,20 +1,27 @@
 package com.example.rcciitapp.ui.admin
 
+import android.content.Intent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.example.rcciitapp.data.remote.entity.AdminAuthState
+import com.example.rcciitapp.MainActivity
+import com.example.rcciitapp.model.AdminAuthState
 import com.example.rcciitapp.utils.AdminAuthEvent
 import com.example.rcciitapp.viewModel.AuthViewModel
+
 /**
  * Admin Authentication
  * Access to AuthViewModel for handling events and state
@@ -23,11 +30,21 @@ import com.example.rcciitapp.viewModel.AuthViewModel
 @Composable
 fun AdminAuth() {
     val authViewModel: AuthViewModel = hiltViewModel()
-    AdminAuthContent(
-        modifier = Modifier.fillMaxWidth(),
-        adminAuthState = authViewModel.authUiState.collectAsStateWithLifecycle().value,
-        handleEvent = authViewModel::handleAuthEvent
-    )
+    val isLoggedIn by authViewModel.isLoggedIn.collectAsState()
+    val context = LocalContext.current
+    if (isLoggedIn) {
+        LaunchedEffect(Unit) {
+            val intent = Intent(context, MainActivity::class.java)
+            context.startActivity(intent)
+
+        }
+    } else {
+        AdminAuthContent(
+            modifier = Modifier.fillMaxWidth(),
+            adminAuthState = authViewModel.authUiState.collectAsStateWithLifecycle().value,
+            handleEvent = authViewModel::handleAuthEvent
+        )
+    }
 }
 
 @Composable

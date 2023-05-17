@@ -46,7 +46,11 @@ class MainActivity : ComponentActivity() {
                     //LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
                     val navController = rememberNavController()
                     Navigation(navController = navController)
-                    RccApp(isConnected = viewModel.homeUiState.collectAsStateWithLifecycle().value.isConnectivityAvailable)
+                    RccApp(
+                        isConnected = viewModel.homeUiState.collectAsStateWithLifecycle().value.isConnectivityAvailable,
+                        isAdminLoggedIn =
+                        viewModel.homeUiState.collectAsStateWithLifecycle().value.isAdminLoggedIn
+                    )
                 }
             }
         }

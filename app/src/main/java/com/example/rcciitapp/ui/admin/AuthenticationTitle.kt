@@ -7,7 +7,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.rcciitapp.R
-import com.example.rcciitapp.data.remote.entity.AuthenticationMode
 
 @Composable
 fun AuthenticationTitle(

@@ -17,7 +17,7 @@ import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.rcciitapp.R
-import com.example.rcciitapp.data.remote.entity.PasswordRequirements
+import com.example.rcciitapp.model.PasswordRequirements
 
 @Composable
 fun Requirement(modifier: Modifier = Modifier, message: String, satisfied: Boolean) {

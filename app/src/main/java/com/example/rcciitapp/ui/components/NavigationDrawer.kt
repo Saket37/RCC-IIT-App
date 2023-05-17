@@ -32,7 +32,8 @@ import com.example.rcciitapp.ui.admin.AdminAuthActivity
 fun DrawerContent(
     modifier: Modifier = Modifier,
     onNavigate: (destination: Destination) -> Unit,
-    close: () -> Unit
+    close: () -> Unit,
+    isAdminLoggedIn: Boolean
 ) {
     Column(
 
@@ -54,14 +55,16 @@ fun DrawerContent(
             modifier = modifier
                 .padding(horizontal = 36.dp),
             onClick = {
-                context.startActivity(Intent(context, AdminAuthActivity::class.java))
+                if (!isAdminLoggedIn) {
+                    context.startActivity(Intent(context, AdminAuthActivity::class.java))
+                }
             }) {
             Image(
                 painter = painterResource(id = R.drawable.ic_admin_login),
                 contentDescription = null
             )
             Spacer(modifier = Modifier.width(12.dp))
-            Text(text = "Admin Login")
+            Text(text = if (isAdminLoggedIn) "Sign Out" else "Admin Login")
         }
         Divider(
             modifier = Modifier

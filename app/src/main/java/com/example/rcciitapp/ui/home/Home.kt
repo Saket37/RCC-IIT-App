@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RccApp(isConnected: Boolean) {
+fun RccApp(isConnected: Boolean,isAdminLoggedIn:Boolean) {
     RCCIITAppTheme {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
@@ -43,7 +43,8 @@ fun RccApp(isConnected: Boolean) {
                             navController.navigate(it.path)
                             coroutineScope.launch { drawerState.close() }
                         },
-                        close = { coroutineScope.launch { drawerState.close() } }
+                        close = { coroutineScope.launch { drawerState.close() } },
+                        isAdminLoggedIn = isAdminLoggedIn
                     )
                 }
             }, scrimColor = scrimColor, gesturesEnabled = false
@@ -51,7 +52,8 @@ fun RccApp(isConnected: Boolean) {
             HomeScreen(
                 navController = navController,
                 openDrawer = { coroutineScope.launch { drawerState.open() } },
-                isConnected = isConnected
+                isConnected = isConnected,
+                isAdminLoggedIn = isAdminLoggedIn
             )
         }
     }
@@ -64,7 +66,8 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
     openDrawer: () -> Unit,
-    isConnected: Boolean
+    isConnected: Boolean,
+    isAdminLoggedIn: Boolean
 ) {
     var selectedIndex by remember { mutableStateOf(0) }
     val bottomBarHeight = 86.dp
@@ -148,6 +151,6 @@ fun HomeScreen(
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen(openDrawer = {}, isConnected = false)
+    HomeScreen(openDrawer = {}, isConnected = false, isAdminLoggedIn = false)
 }
 

@@ -1,4 +1,4 @@
-package com.example.rcciitapp.data.remote.entity
+package com.example.rcciitapp.model
 
 import androidx.annotation.StringRes
 import com.example.rcciitapp.R
