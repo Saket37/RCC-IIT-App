@@ -1,4 +1,4 @@
-package com.example.rcciitapp.ui.courses
+package com.example.rcciitapp.ui.faculty
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*

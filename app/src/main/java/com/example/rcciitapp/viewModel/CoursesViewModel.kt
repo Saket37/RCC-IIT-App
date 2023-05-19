@@ -6,12 +6,14 @@ import com.example.rcciitapp.R
 import com.example.rcciitapp.data.Result
 import com.example.rcciitapp.data.course.impl.FakeCourseRepository
 import com.example.rcciitapp.model.Course
+import com.example.rcciitapp.utils.DataStoreManager
 import com.example.rcciitapp.utils.ErrorMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.UUID
 import javax.inject.Inject
 
 data class CourseState(
@@ -23,12 +25,25 @@ data class CourseState(
 )
 
 @HiltViewModel
-class CoursesViewModel @Inject constructor(private val courseRepository: FakeCourseRepository) :
+class CoursesViewModel @Inject constructor(
+    private val courseRepository: FakeCourseRepository,
+    private val dataStoreManager: DataStoreManager
+) :
     ViewModel() {
     private val _courseUiState = MutableStateFlow(CourseState())
     val courseUiState get() = _courseUiState
+    private val _isAdminLoggedIn = MutableStateFlow(false)
+    val isAdminLoggedIn get() = _isAdminLoggedIn
 
     init {
+        viewModelScope.launch {
+            dataStoreManager.isAdminLoggedIn().collectLatest { bool ->
+                _isAdminLoggedIn.update {
+                    bool
+                }
+            }
+        }
+
         observeData()
     }
 
@@ -43,6 +58,7 @@ class CoursesViewModel @Inject constructor(private val courseRepository: FakeCou
                         course = result.data,
                         isLoading = false
                     )
+
                     is Result.Error -> {
                         val errorMessage = it.error + ErrorMessage(
                             id = UUID.randomUUID().mostSignificantBits,

@@ -49,7 +49,8 @@ class MainActivity : ComponentActivity() {
                     RccApp(
                         isConnected = viewModel.homeUiState.collectAsStateWithLifecycle().value.isConnectivityAvailable,
                         isAdminLoggedIn =
-                        viewModel.homeUiState.collectAsStateWithLifecycle().value.isAdminLoggedIn
+                        viewModel.homeUiState.collectAsStateWithLifecycle().value.isAdminLoggedIn,
+                        handleEvent = viewModel::handleEvent
                     )
                 }
             }

@@ -1,6 +1,7 @@
 package com.example.rcciitapp.ui.admin
 
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,6 +34,7 @@ fun AdminAuth() {
     val isLoggedIn by authViewModel.isLoggedIn.collectAsState()
     val context = LocalContext.current
     if (isLoggedIn) {
+        Toast.makeText(context, "Successfully Logged In", Toast.LENGTH_SHORT).show()
         LaunchedEffect(Unit) {
             val intent = Intent(context, MainActivity::class.java)
             context.startActivity(intent)

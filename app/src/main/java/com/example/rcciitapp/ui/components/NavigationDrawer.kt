@@ -33,7 +33,8 @@ fun DrawerContent(
     modifier: Modifier = Modifier,
     onNavigate: (destination: Destination) -> Unit,
     close: () -> Unit,
-    isAdminLoggedIn: Boolean
+    isAdminLoggedIn: Boolean,
+    logout: () -> Unit,
 ) {
     Column(
 
@@ -57,6 +58,9 @@ fun DrawerContent(
             onClick = {
                 if (!isAdminLoggedIn) {
                     context.startActivity(Intent(context, AdminAuthActivity::class.java))
+                } else {
+                    logout()
+                    close()
                 }
             }) {
             Image(

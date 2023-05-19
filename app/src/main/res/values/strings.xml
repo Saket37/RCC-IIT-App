@@ -22,6 +22,7 @@
 
     <string name="action_sign_up">Sign Up</string>
     <string name="action_sign_in">Sign In</string>
+    <string name="action_save">Save</string>
 
     <string name="action_need_account">Need an account?</string>
     <string name="action_already_have_account">Already have an account?</string>

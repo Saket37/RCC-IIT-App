@@ -5,6 +5,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -49,4 +52,55 @@ fun RccTopAppBar(
         scrollBehavior = scrollBehavior,
         modifier = modifier,
     )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun FacultyAppBar(
+    modifier: Modifier = Modifier,
+    title: String,
+    onCancelled: () -> Unit,
+    onAddClicked: () -> Unit,
+    topAppBarState: TopAppBarState = rememberTopAppBarState(),
+    scrollBehavior: TopAppBarScrollBehavior =
+        TopAppBarDefaults.enterAlwaysScrollBehavior(topAppBarState)
+) {
+    CenterAlignedTopAppBar(title = { Text(text = title) }, navigationIcon = {
+        IconButton(onClick = { onCancelled() }) {
+            Icon(
+                imageVector = Icons.Default.ArrowBack,
+                contentDescription = null
+            )
+        }
+    }, actions = {
+        IconButton(onClick = { onAddClicked() }) {
+            Icon(
+                imageVector = Icons.Default.Add,
+                contentDescription = null
+            )
+        }
+    })
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EditFacultyAppBar(
+    modifier: Modifier = Modifier, title: String, onCancelled: () -> Unit, onSaveClicked: () -> Unit
+) {
+    CenterAlignedTopAppBar(title = { Text(text = title) }, navigationIcon = {
+        IconButton(onClick = { onCancelled() }) {
+            Icon(
+                imageVector = Icons.Default.Close,
+                contentDescription = null
+            )
+        }
+    }, actions = {
+        Button(onClick = { onSaveClicked() }) {
+            Text(
+                modifier = Modifier, text = stringResource(
+                    id = R.string.action_save
+                )
+            )
+        }
+    })
 }

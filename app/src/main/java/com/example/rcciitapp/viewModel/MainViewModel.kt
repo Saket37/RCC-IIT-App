@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.rcciitapp.observeconnectivity.ConnectionState
 import com.example.rcciitapp.observeconnectivity.ConnectivityObserver
 import com.example.rcciitapp.utils.DataStoreManager
+import com.example.rcciitapp.utils.LogoutEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,7 +14,6 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -47,6 +47,13 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    private fun logout() {
+        viewModelScope.launch {
+            dataStoreManager.deleteUserData()
+            _homeUiState.value =
+                _homeUiState.value.copy(isAdminLoggedIn = false)
+        }
+    }
 
     private fun observeConnectivity() {
         connectivityObserver.connectionState
@@ -54,5 +61,14 @@ class MainViewModel @Inject constructor(
             .map { it === ConnectionState.Available }
             .onEach { _homeUiState.value = _homeUiState.value.copy(isConnectivityAvailable = it) }
             .launchIn(viewModelScope)
+    }
+
+    fun handleEvent(logoutEvent: LogoutEvent) {
+        when (logoutEvent) {
+            is LogoutEvent.Logout -> {
+                logout()
+            }
+        }
+
     }
 }

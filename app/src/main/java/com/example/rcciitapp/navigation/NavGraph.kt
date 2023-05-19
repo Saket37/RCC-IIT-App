@@ -14,7 +14,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.rcciitapp.ui.courses.Course
-import com.example.rcciitapp.ui.courses.CourseDetailScreen
+import com.example.rcciitapp.ui.faculty.EditFacultyScreen
+import com.example.rcciitapp.ui.faculty.FacultyScreen
 import com.example.rcciitapp.ui.rccHome.RccHome
 import com.example.rcciitapp.ui.updates.Updates
 
@@ -60,10 +61,10 @@ fun Navigation(
                 }
             }
             composable(
-                route = Destination.CourseDetails.path +"/{courseId}",
+                route = Destination.Faculty.path + "/{courseId}",
                 arguments = listOf(navArgument("courseId") {
                     type = NavType.StringType
-                    nullable =false
+                    nullable = false
                 })
             ) {
                 val courseId = it.arguments?.getString("courseId")
@@ -71,12 +72,22 @@ fun Navigation(
                     modifier = Modifier
                         .fillMaxSize(),
                 ) {
-                    courseId?.let { it1 -> CourseDetailScreen(courseId = it1) }
+                    courseId?.let { it1 -> FacultyScreen(courseId = it1,navController = navController) }
+                }
+            }
+            composable(route = Destination.AddFaculty.path) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                ) {
+                    EditFacultyScreen()
                 }
             }
         }
+
         /*composable(route = Destination.AdminLogin.path) {
             AdminAuth()
         }*/
     }
+
 }

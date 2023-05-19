@@ -22,11 +22,16 @@ import com.example.rcciitapp.ui.components.ConnectivityStatus
 import com.example.rcciitapp.ui.components.DrawerContent
 import com.example.rcciitapp.ui.components.RccTopAppBar
 import com.example.rcciitapp.ui.theme.RCCIITAppTheme
+import com.example.rcciitapp.utils.LogoutEvent
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RccApp(isConnected: Boolean,isAdminLoggedIn:Boolean) {
+fun RccApp(
+    isConnected: Boolean,
+    isAdminLoggedIn: Boolean,
+    handleEvent: (event: LogoutEvent) -> Unit,
+) {
     RCCIITAppTheme {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
@@ -44,7 +49,10 @@ fun RccApp(isConnected: Boolean,isAdminLoggedIn:Boolean) {
                             coroutineScope.launch { drawerState.close() }
                         },
                         close = { coroutineScope.launch { drawerState.close() } },
-                        isAdminLoggedIn = isAdminLoggedIn
+                        isAdminLoggedIn = isAdminLoggedIn,
+                        logout = {
+                            handleEvent(LogoutEvent.Logout)
+                        }
                     )
                 }
             }, scrimColor = scrimColor, gesturesEnabled = false
@@ -105,7 +113,12 @@ fun HomeScreen(
 
     Scaffold(
         topBar = {
-            RccTopAppBar(openDrawer = openDrawer, topAppBarState = topAppBarState)
+            when (currentDestination) {
+                Destination.RCC, Destination.Courses, Destination.Gallery, Destination.Update -> {
+                    RccTopAppBar(openDrawer = openDrawer, topAppBarState = topAppBarState)
+                }
+                else -> {}
+            }
         },
         bottomBar = {
             BottomAppBar(

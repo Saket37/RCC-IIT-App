@@ -27,37 +27,41 @@ sealed class Destination(
             append(path)
             args.forEach { arg ->
                 append("/$arg")
-                Log.d("COURSE_DETAILS",arg)
+                Log.d("COURSE_DETAILS", arg)
             }
         }
     }
 
-    object Home : Destination("rccHome")
+    object Home : Destination("rccHome", isRootDestination = true)
     object RCC : Destination(
         path = "home",
         icon = R.drawable.ic_outline_home,
-        selectedIcon = R.drawable.ic_filled_home
+        selectedIcon = R.drawable.ic_filled_home,
+        isRootDestination = true
     )
 
     object Courses : Destination(
         path = "courses",
         icon = R.drawable.ic_outline_faculty,
-        selectedIcon = R.drawable.ic_filled_faculty
+        selectedIcon = R.drawable.ic_filled_faculty,
+        isRootDestination = true
     )
 
     object Gallery : Destination(
         path = "gallery",
         icon = R.drawable.ic_outline_gallery,
-        selectedIcon = R.drawable.ic_filled_gallery
+        selectedIcon = R.drawable.ic_filled_gallery,
+        isRootDestination = true
     )
 
     object Update : Destination(
         path = "updates",
         icon = R.drawable.ic_outline_notice,
-        selectedIcon = R.drawable.ic_filled_notice
+        selectedIcon = R.drawable.ic_filled_notice,
+        isRootDestination = true
     )
 
-    object CourseDetails : Destination(path = "course")
-
+    object Faculty : Destination(path = "course", isRootDestination = false)
+    object AddFaculty : Destination(path = "addFaculty", isRootDestination = false)
     //object AdminLogin : Destination(path = "adminLogin", isRootDestination = false)
 }

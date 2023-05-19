@@ -3,7 +3,6 @@ package com.example.rcciitapp.ui.courses
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
@@ -21,6 +20,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.viewModel.CourseState
 import com.example.rcciitapp.viewModel.CoursesViewModel
+
 /**
  * Courses Tab View
  */
@@ -45,13 +45,16 @@ fun CourseContent(
     Box(
         modifier = Modifier
             .fillMaxSize(),
-        contentAlignment = Alignment.Center
+        //contentAlignment = Alignment.Center
     ) {
-        if (uiState.isLoading) {
-            CircularProgressIndicator()
-        } else {
-            //var size by remember { mutableStateOf(Size.Zero) }
-            LazyColumn() {
+
+        //var size by remember { mutableStateOf(Size.Zero) }
+        LazyColumn() {
+            if (uiState.isLoading) {
+                items(10){
+                    ShimmerCourseCard()
+                }
+            } else {
                 item {
                     Row(
                         modifier = Modifier
@@ -83,7 +86,7 @@ fun CourseContent(
                                     .aspectRatio(1f),
                                 onNavigate = {
                                     navController.navigate(
-                                        Destination.CourseDetails.withArgs(
+                                        Destination.Faculty.withArgs(
                                             it.id
                                         )
                                     )
@@ -133,7 +136,7 @@ fun CourseContent(
                                     .aspectRatio(1f),
                                 onNavigate = {
                                     navController.navigate(
-                                        Destination.CourseDetails.withArgs(
+                                        Destination.Faculty.withArgs(
                                             it.id
                                         )
                                     )
@@ -182,7 +185,7 @@ fun CourseContent(
                                     .aspectRatio(1f),
                                 onNavigate = {
                                     navController.navigate(
-                                        Destination.CourseDetails.withArgs(
+                                        Destination.Faculty.withArgs(
                                             it.id
                                         )
                                     )
@@ -198,6 +201,7 @@ fun CourseContent(
                         }
                     }
                 }
+
             }
         }
     }

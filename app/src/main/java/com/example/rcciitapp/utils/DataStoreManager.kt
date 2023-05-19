@@ -39,6 +39,15 @@ class DataStoreManager(private val context: Context) {
         }
     }
 
+    suspend fun deleteUserData() {
+        context.dataStore.edit { pref ->
+            pref.remove(USER_TOKEN_KEY)
+            pref.remove(USER_ID)
+            pref.remove(USER_NAME)
+            pref.remove(USER_EMAIL)
+        }
+    }
+
     fun isAdminLoggedIn(): Flow<Boolean> {
         return getToken().map { token ->
             !token.isNullOrEmpty()
