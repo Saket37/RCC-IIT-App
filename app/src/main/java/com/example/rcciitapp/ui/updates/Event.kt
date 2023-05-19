@@ -4,13 +4,11 @@ import android.graphics.Bitmap
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,16 +17,24 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.rcciitapp.viewModel.EventViewModel
 
 @Composable
 fun Event() {
     val scrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
+    val viewModel: EventViewModel = hiltViewModel()
+
     Box(
     ) {
-        WebViewWrapper(url = "https://www.rcciit.org/updates/events.aspx")
+        LazyColumn() {
+            items(viewModel.uiState.value.event) {
+                EventsCard(title = it.title, date = it.date, venue = it.venue, type = it.type)
+            }
+        }
+        //WebViewWrapper(url = "https://www.rcciit.org/updates/events.aspx")
 
     }
 }
@@ -57,6 +63,7 @@ fun WebViewWrapper(url: String) {
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
                 super.onPageStarted(view, url, favicon)
             }
+
             override fun onPageFinished(view: WebView?, url: String?) {
                 // Inject JavaScript code to manipulate the webpage
                 val javascript = """
@@ -84,21 +91,27 @@ fun WebViewWrapper(url: String) {
 }
 
 @Composable
-fun EventsCard() {
+fun EventsCard(
+    title: String,
+    date: String,
+    venue: String,
+    type: String
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth(),
         //elevation = CardDefaults.cardElevation(6.dp),
         //shape = RoundedCornerShape(16.dp)
     ) {
-        Text(text = "Dated: 08 May, 2023 - 17 May, 2023 ")
-        Text(text = "Venue: RCCIIT Type: State")
-        Text(text = "Select Faculty of RCCIIT will be trained by Intel Experts on AI to become Lead Facilitators of 'AI for Future Workforce' Program to be offered to the students in collaboration with Intel.")
+        Text(text = date)
+        Text(text = venue)
+        Text(text = title)
     }
 }
 
+/*
 @Preview
 @Composable
 fun EventCardPreview() {
     EventsCard()
-}
+}*/
