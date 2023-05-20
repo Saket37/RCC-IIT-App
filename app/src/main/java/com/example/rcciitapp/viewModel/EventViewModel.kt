@@ -3,7 +3,7 @@ package com.example.rcciitapp.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rcciitapp.data.remote.entity.Event
-import com.example.rcciitapp.data.repository.EventRepository
+import com.example.rcciitapp.domain.repository.EventRepository
 import com.example.rcciitapp.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers

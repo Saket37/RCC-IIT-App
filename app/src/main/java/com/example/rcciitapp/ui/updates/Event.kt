@@ -19,18 +19,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.rcciitapp.viewModel.EventViewModel
 
+@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun Event() {
     val scrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
     val viewModel: EventViewModel = hiltViewModel()
+    val uiState = viewModel.uiState.collectAsStateWithLifecycle().value
 
     Box(
     ) {
         LazyColumn() {
-            items(viewModel.uiState.value.event) {
+            items(uiState.event) {
                 EventsCard(title = it.title, date = it.date, venue = it.venue, type = it.type)
             }
         }
