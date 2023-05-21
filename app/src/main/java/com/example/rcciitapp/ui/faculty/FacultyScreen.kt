@@ -10,19 +10,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.DismissDirection
-import androidx.compose.material.DismissState
-import androidx.compose.material.DismissValue
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.FractionalThreshold
-import androidx.compose.material.Icon
-import androidx.compose.material.SwipeToDismiss
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.rememberDismissState
-import androidx.compose.material.rememberScaffoldState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
@@ -61,6 +52,7 @@ fun FacultyScreen(
     val scope = rememberCoroutineScope()
     val topAppBarState = rememberTopAppBarState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(topAppBarState)
+    val isAdminLoggedIn = viewModel.isAdminLoggedIn.collectAsStateWithLifecycle().value
     Scaffold(topBar = {
         FacultyAppBar(
             title = "Faculty",
@@ -68,7 +60,7 @@ fun FacultyScreen(
             onAddClicked = {
                 navController.navigate(Destination.AddFaculty.path)
             },
-            topAppBarState = topAppBarState
+            topAppBarState = topAppBarState, isAdminLoggedIn = isAdminLoggedIn
         )
     }) { innerPadding ->
         Box(
@@ -85,7 +77,7 @@ fun FacultyScreen(
             viewModel.selectCourse(courseId)
             FacultySection(
                 uiState = viewModel.courseUiState.collectAsStateWithLifecycle().value,
-                isAdminLoggedIn = viewModel.isAdminLoggedIn.collectAsStateWithLifecycle().value,
+                isAdminLoggedIn = isAdminLoggedIn,
             )
         }
 

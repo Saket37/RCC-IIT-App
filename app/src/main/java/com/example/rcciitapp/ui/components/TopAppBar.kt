@@ -63,7 +63,8 @@ fun FacultyAppBar(
     onAddClicked: () -> Unit,
     topAppBarState: TopAppBarState = rememberTopAppBarState(),
     scrollBehavior: TopAppBarScrollBehavior =
-        TopAppBarDefaults.enterAlwaysScrollBehavior(topAppBarState)
+        TopAppBarDefaults.enterAlwaysScrollBehavior(topAppBarState),
+    isAdminLoggedIn: Boolean
 ) {
     CenterAlignedTopAppBar(title = { Text(text = title) }, navigationIcon = {
         IconButton(onClick = { onCancelled() }) {
@@ -73,12 +74,13 @@ fun FacultyAppBar(
             )
         }
     }, actions = {
-        IconButton(onClick = { onAddClicked() }) {
-            Icon(
-                imageVector = Icons.Default.Add,
-                contentDescription = null
-            )
-        }
+        if (isAdminLoggedIn)
+            IconButton(onClick = { onAddClicked() }) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = null
+                )
+            }
     })
 }
 
