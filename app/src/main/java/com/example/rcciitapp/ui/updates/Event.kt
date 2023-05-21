@@ -169,8 +169,11 @@ fun EventCardStatic(title: String, date: String, description: String, venue: Str
                 Text(
                     text = title, fontSize = 18.sp, fontWeight = FontWeight.Bold
                 )
+                Spacer(modifier = Modifier.height(6.dp))
                 Text(text = date, fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.height(6.dp))
                 Text(text = venue, fontWeight = FontWeight.Bold)
+                Spacer(modifier = Modifier.height(6.dp))
                 Text(text = description)
 
             }
