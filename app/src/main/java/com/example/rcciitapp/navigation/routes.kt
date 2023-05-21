@@ -63,5 +63,6 @@ sealed class Destination(
 
     object Faculty : Destination(path = "course", isRootDestination = false)
     object AddFaculty : Destination(path = "addFaculty", isRootDestination = false)
+    object Placement :Destination(path = "placement", isRootDestination = false)
     //object AdminLogin : Destination(path = "adminLogin", isRootDestination = false)
 }

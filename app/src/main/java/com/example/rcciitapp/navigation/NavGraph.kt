@@ -16,6 +16,7 @@ import androidx.navigation.navigation
 import com.example.rcciitapp.ui.courses.Course
 import com.example.rcciitapp.ui.faculty.EditFacultyScreen
 import com.example.rcciitapp.ui.faculty.FacultyScreen
+import com.example.rcciitapp.ui.placement.PlacementScreen
 import com.example.rcciitapp.ui.rccHome.RccHome
 import com.example.rcciitapp.ui.updates.Updates
 
@@ -72,7 +73,12 @@ fun Navigation(
                     modifier = Modifier
                         .fillMaxSize(),
                 ) {
-                    courseId?.let { it1 -> FacultyScreen(courseId = it1,navController = navController) }
+                    courseId?.let { it1 ->
+                        FacultyScreen(
+                            courseId = it1,
+                            navController = navController
+                        )
+                    }
                 }
             }
             composable(route = Destination.AddFaculty.path) {
@@ -81,6 +87,11 @@ fun Navigation(
                         .fillMaxSize(),
                 ) {
                     EditFacultyScreen()
+                }
+            }
+            composable(Destination.Placement.path) {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    PlacementScreen()
                 }
             }
         }

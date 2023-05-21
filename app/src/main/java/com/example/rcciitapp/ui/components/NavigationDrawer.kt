@@ -2,28 +2,20 @@ package com.example.rcciitapp.ui.components
 
 import android.content.Intent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.rcciitapp.R
 import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.ui.admin.AdminAuthActivity
@@ -36,9 +28,7 @@ fun DrawerContent(
     isAdminLoggedIn: Boolean,
     logout: () -> Unit,
 ) {
-    Column(
-
-    ) {
+    Column {
         val context = LocalContext.current
         // TODO - Add image, admin login and other tabs
         Row(
@@ -49,7 +39,6 @@ fun DrawerContent(
                 Icon(imageVector = Icons.Default.Close, contentDescription = "Close Drawer")
             }
         }
-
         DrawerHeader()
         Spacer(modifier = Modifier.height(12.dp))
         Button(
@@ -75,7 +64,51 @@ fun DrawerContent(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp, vertical = 8.dp)
         )
+        Text(
+            text = "Academic",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Start,
+            modifier = Modifier
+                .padding(16.dp)
+                .clickable { })
+        Text(
+            text = "Admission",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Start,
+            modifier = Modifier
+                .padding(16.dp)
+                .clickable { })
+        Text(
+            text = "Placement",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Start,
+            modifier = Modifier
+                .padding(16.dp)
+                .clickable { onNavigate(Destination.Placement) })
 
+        Text(
+            text = "Anti Ragging",
+            fontSize = 18.sp,
+            fontWeight = FontWeight.Bold,
+            textAlign = TextAlign.Start,
+            modifier = Modifier
+                .padding(16.dp)
+                .clickable { })
+
+        Spacer(modifier = Modifier.weight(1f))
+        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+            Text(
+                text = "Contact Us",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .padding(16.dp)
+                    .clickable { })
+        }
 
         /*GlideImage(
             model = R.drawable.ic_drawer_image,
