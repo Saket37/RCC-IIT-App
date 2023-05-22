@@ -13,6 +13,7 @@ import com.example.rcciitapp.observeconnectivity.ConnectivityObserver
 import com.example.rcciitapp.observeconnectivity.ConnectivityObserverImpl
 import com.example.rcciitapp.observeconnectivity.connectivityManager
 import com.example.rcciitapp.utils.DataStoreManager
+import com.example.rcciitapp.utils.SharedPreferenceManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -51,5 +52,11 @@ class AppModule {
     @Provides
     fun providedNewsRepository(): NewsRepository {
         return NewsRepositoryImpl()
+    }
+
+    @Singleton
+    @Provides
+    fun providesSharedPreference(@ApplicationContext context: Context): SharedPreferenceManager {
+        return SharedPreferenceManager(context)
     }
 }

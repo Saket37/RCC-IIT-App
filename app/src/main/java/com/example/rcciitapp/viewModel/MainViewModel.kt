@@ -6,6 +6,7 @@ import com.example.rcciitapp.observeconnectivity.ConnectionState
 import com.example.rcciitapp.observeconnectivity.ConnectivityObserver
 import com.example.rcciitapp.utils.DataStoreManager
 import com.example.rcciitapp.utils.LogoutEvent
+import com.example.rcciitapp.utils.SharedPreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,7 +27,9 @@ data class HomeUiState(
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val connectivityObserver: ConnectivityObserver,
-    private val dataStoreManager: DataStoreManager
+    private val dataStoreManager: DataStoreManager,
+    private val sharedPreferenceManager: SharedPreferenceManager
+
 ) :
     ViewModel() {
     private val _homeUiState = MutableStateFlow(HomeUiState())
@@ -39,11 +42,14 @@ class MainViewModel @Inject constructor(
             _homeUiState.value =
                 _homeUiState.value.copy(isLoading = false)
             observeConnectivity()
-            dataStoreManager.isAdminLoggedIn().collectLatest { bool ->
+            val isAdminLoggedIn =sharedPreferenceManager.isAdminLoggedIn()
+            _homeUiState.value =
+                _homeUiState.value.copy(isAdminLoggedIn = isAdminLoggedIn)
+            /*dataStoreManager.isAdminLoggedIn().collectLatest { bool ->
                 _homeUiState.value =
                     _homeUiState.value.copy(isAdminLoggedIn = bool)
 
-            }
+            }*/
         }
     }
 

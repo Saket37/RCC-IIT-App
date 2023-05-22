@@ -8,6 +8,7 @@ import com.example.rcciitapp.domain.repository.Repository
 import com.example.rcciitapp.model.AdminAuthState
 import com.example.rcciitapp.utils.AdminAuthEvent
 import com.example.rcciitapp.utils.DataStoreManager
+import com.example.rcciitapp.utils.SharedPreferenceManager
 import com.example.rcciitapp.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class AuthViewModel @Inject constructor(
     private val repository: Repository,
-    private val dataStore: DataStoreManager
+    private val dataStore: DataStoreManager,
+    private val sharedPreferenceManager: SharedPreferenceManager
 ) : ViewModel() {
     private val _authUiState = MutableStateFlow(AdminAuthState())
     val authUiState get() = _authUiState
@@ -54,20 +56,27 @@ class AuthViewModel @Inject constructor(
                     }
                 }
                 //val login = Login(_authUiState.value.email!!,_authUiState.value.password!!)
-                Log.d("LOGIN_VALUES",login.toString())
+                Log.d("LOGIN_VALUES", login.toString())
                 if (login != null) {
                     repository.adminLogin(login).collectLatest { resource ->
                         when (resource.status) {
                             Status.SUCCESS -> {
                                 if (resource.data?.status == "success") {
-                                    Log.d("LOGIN",resource.data.toString())
+                                    Log.d("LOGIN", resource.data.toString())
                                     resource.data.let {
-                                        dataStore.saveUserData("Bearer $it.token!!"
-                                            ,
+                                        dataStore.saveUserData(
+                                            "Bearer $it.token!!",
                                             it.user!!.email, it.user.name, it.user._id
                                         )
+                                        sharedPreferenceManager.saveUserData(
+                                            it.token!!,
+                                            it.user.email,
+                                            it.user.name,
+                                            it.user._id
+                                        )
                                         _isLoggedIn.value = true
-                                        _authUiState.value = _authUiState.value.copy(isLoading = false)
+                                        _authUiState.value =
+                                            _authUiState.value.copy(isLoading = false)
                                     }
                                 }
                             }

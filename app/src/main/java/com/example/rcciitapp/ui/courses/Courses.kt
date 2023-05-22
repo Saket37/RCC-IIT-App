@@ -65,7 +65,7 @@ fun CourseContent(
 
                     ) {
                         Text(
-                            text = "B.Tech",
+                            text = "B.TECH",
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
                             fontSize = 24.sp
@@ -73,7 +73,7 @@ fun CourseContent(
                     }
                 }
                 items(uiState.courses) {
-                    if (it.branch == "B. Tech") {
+                    if (it.branch == "B.TECH") {
                         Box(
                             modifier = Modifier
                                 .padding(6.dp)
@@ -115,7 +115,7 @@ fun CourseContent(
 
                     ) {
                         Text(
-                            text = "M. Tech",
+                            text = "M.TECH",
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
                             fontSize = 24.sp
@@ -123,7 +123,7 @@ fun CourseContent(
                     }
                 }
                 items(uiState.courses) {
-                    if (it.branch == "M.Tech") {
+                    if (it.branch == "M.TECH") {
                         Box(
                             modifier = Modifier
                                 .padding(6.dp)

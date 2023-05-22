@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.rcciitapp.data.remote.entity.Data
 import com.example.rcciitapp.domain.repository.Repository
 import com.example.rcciitapp.utils.DataStoreManager
+import com.example.rcciitapp.utils.SharedPreferenceManager
 import com.example.rcciitapp.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -24,11 +25,12 @@ data class CourseUiState(
 @HiltViewModel
 class CourseViewModel @Inject constructor(
     private val repository: Repository,
-    private val dataStore: DataStoreManager
+    private val dataStore: DataStoreManager,
+    private val sharedPreferenceManager: SharedPreferenceManager
+
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(CourseUiState())
     val uiState get() = _uiState
-    private val token = MutableStateFlow("")
 
     init {
         fetchCourses()
@@ -36,7 +38,8 @@ class CourseViewModel @Inject constructor(
     private fun fetchCourses() {
         _uiState.value = _uiState.value.copy(isLoading = true)
         viewModelScope.launch {
-            val token = dataStore.getToken().first()
+            //val token = dataStore.getToken().first()
+            val token = sharedPreferenceManager.getToken()
             token?.let { repository.getCourses(it) }?.collectLatest { resource ->
                 withContext(Dispatchers.Main) {
                     when (resource.status) {

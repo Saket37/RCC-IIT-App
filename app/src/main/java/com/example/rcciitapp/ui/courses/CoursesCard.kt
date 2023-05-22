@@ -10,7 +10,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -31,7 +30,7 @@ fun CoursesCard(
         modifier = Modifier
             .fillMaxWidth()
             .clickable { //onNavigate()
-                 }
+            }
             .padding(top = 12.dp, start = 12.dp, end = 12.dp, bottom = 12.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer),
         elevation = CardDefaults.cardElevation(12.dp),
@@ -47,7 +46,7 @@ fun CoursesCard(
             val density = LocalDensity.current.density
             var padding by remember { mutableStateOf(0.dp) }
             Text(
-                text = title,fontWeight = FontWeight.Bold,
+                text = title, fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center,
                 /*onTextLayout = {
                     val lineCount = it.lineCount
@@ -78,8 +77,8 @@ fun CoursesCardPreview() {
         onNavigate = {},
         title = "Computer Science & Engineering (CSE)",
         branch = "B.Tech",
-        duration = 4 ,
+        duration = 4,
         intake = 120,
 
-    )
+        )
 }
