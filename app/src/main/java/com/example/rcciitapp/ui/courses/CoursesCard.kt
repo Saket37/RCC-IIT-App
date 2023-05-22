@@ -23,14 +23,15 @@ fun CoursesCard(
     onNavigate: () -> Unit,
     title: String,
     branch: String,
-    duration: String,
-    intake: String,
+    duration: Int,
+    intake: Int,
     //size: Size
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onNavigate() }
+            .clickable { //onNavigate()
+                 }
             .padding(top = 12.dp, start = 12.dp, end = 12.dp, bottom = 12.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer),
         elevation = CardDefaults.cardElevation(12.dp),
@@ -58,7 +59,7 @@ fun CoursesCard(
             //Text(text = "Branch - $branch")
             Spacer(modifier = Modifier.height(6.dp))
             Text(
-                text = "Duration - $duration",
+                text = "Duration - $duration Years",
             )
             Spacer(modifier = Modifier.height(6.dp))
 
@@ -77,8 +78,8 @@ fun CoursesCardPreview() {
         onNavigate = {},
         title = "Computer Science & Engineering (CSE)",
         branch = "B.Tech",
-        duration = "4 Years",
-        intake = "120",
+        duration = 4 ,
+        intake = 120,
 
     )
 }

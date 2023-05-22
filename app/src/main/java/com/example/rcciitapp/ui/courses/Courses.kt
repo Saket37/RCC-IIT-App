@@ -19,6 +19,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.viewModel.CourseState
+import com.example.rcciitapp.viewModel.CourseUiState
+import com.example.rcciitapp.viewModel.CourseViewModel
 import com.example.rcciitapp.viewModel.CoursesViewModel
 
 /**
@@ -29,9 +31,9 @@ import com.example.rcciitapp.viewModel.CoursesViewModel
 fun Course(
     modifier: Modifier = Modifier, navController: NavHostController,
 ) {
-    val viewModel: CoursesViewModel = hiltViewModel()
+    val viewModel: CourseViewModel = hiltViewModel()
     CourseContent(
-        uiState = viewModel.courseUiState.collectAsStateWithLifecycle().value,
+        uiState = viewModel.uiState.collectAsStateWithLifecycle().value,
         navController = navController
     )
 }
@@ -39,7 +41,7 @@ fun Course(
 @Composable
 fun CourseContent(
     modifier: Modifier = Modifier,
-    uiState: CourseState,
+    uiState: CourseUiState,
     navController: NavHostController = rememberNavController()
 ) {
     Box(
@@ -51,7 +53,7 @@ fun CourseContent(
         //var size by remember { mutableStateOf(Size.Zero) }
         LazyColumn() {
             if (uiState.isLoading) {
-                items(10){
+                items(10) {
                     ShimmerCourseCard()
                 }
             } else {
@@ -70,8 +72,8 @@ fun CourseContent(
                         )
                     }
                 }
-                items(uiState.course) {
-                    if (it.branch == "B.Tech") {
+                items(uiState.courses) {
+                    if (it.branch == "B. Tech") {
                         Box(
                             modifier = Modifier
                                 .padding(6.dp)
@@ -85,11 +87,11 @@ fun CourseContent(
                                     .fillMaxSize()
                                     .aspectRatio(1f),
                                 onNavigate = {
-                                    navController.navigate(
+                                    /*navController.navigate(
                                         Destination.Faculty.withArgs(
                                             it.id
                                         )
-                                    )
+                                    )*/
                                 },
                                 title = it.courseName,
                                 branch = it.branch,
@@ -113,14 +115,14 @@ fun CourseContent(
 
                     ) {
                         Text(
-                            text = "M.Tech",
+                            text = "M. Tech",
                             fontWeight = FontWeight.Bold,
                             textAlign = TextAlign.Center,
                             fontSize = 24.sp
                         )
                     }
                 }
-                items(uiState.course) {
+                items(uiState.courses) {
                     if (it.branch == "M.Tech") {
                         Box(
                             modifier = Modifier
@@ -135,11 +137,11 @@ fun CourseContent(
                                     .fillMaxSize()
                                     .aspectRatio(1f),
                                 onNavigate = {
-                                    navController.navigate(
+                                    /*navController.navigate(
                                         Destination.Faculty.withArgs(
                                             it.id
                                         )
-                                    )
+                                    )*/
                                 },
                                 title = it.courseName,
                                 branch = it.branch,
@@ -169,7 +171,7 @@ fun CourseContent(
                         )
                     }
                 }
-                items(uiState.course) {
+                items(uiState.courses) {
                     if (it.branch == "MCA") {
                         Box(
                             modifier = Modifier
@@ -184,11 +186,11 @@ fun CourseContent(
                                     .fillMaxSize()
                                     .aspectRatio(1f),
                                 onNavigate = {
-                                    navController.navigate(
+                                    /*navController.navigate(
                                         Destination.Faculty.withArgs(
                                             it.id
                                         )
-                                    )
+                                    )*/
                                 },
                                 title = it.courseName,
                                 branch = it.branch,

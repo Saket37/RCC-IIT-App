@@ -93,7 +93,7 @@ val cseFaculty = listOf(
         doj = "09.03.2007",
         designation = "Assistant Professor",
         email = "alokananda.dey@rcciit.org.in",
-        image = R.drawable.cse_alokananda
+        image = R.drawable.cse_anirban
     ), Faculty(
         id = "CSE_12",
         name = "Mrs. Satabdwi Sarkar",
