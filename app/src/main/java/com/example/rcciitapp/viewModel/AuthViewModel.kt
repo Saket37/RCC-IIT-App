@@ -62,8 +62,8 @@ class AuthViewModel @Inject constructor(
                                 if (resource.data?.status == "success") {
                                     Log.d("LOGIN",resource.data.toString())
                                     resource.data.let {
-                                        dataStore.saveUserData(
-                                            it.token!!,
+                                        dataStore.saveUserData("Bearer $it.token!!"
+                                            ,
                                             it.user!!.email, it.user.name, it.user._id
                                         )
                                         _isLoggedIn.value = true

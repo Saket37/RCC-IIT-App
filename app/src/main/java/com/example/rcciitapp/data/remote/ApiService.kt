@@ -1,9 +1,11 @@
 package com.example.rcciitapp.data.remote
 
+import com.example.rcciitapp.data.remote.entity.Courses
 import com.example.rcciitapp.data.remote.entity.Login
 import com.example.rcciitapp.data.remote.entity.LoginResponse
-import okhttp3.RequestBody
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiService {
@@ -11,5 +13,10 @@ interface ApiService {
     suspend fun login(
         @Body login: Login,
         //@Body requestBody: RequestBody
-    ):LoginResponse
+    ): LoginResponse
+
+    @GET("courses")
+    suspend fun getCourses(
+        @Header("Authorization") token: String
+    ):Courses
 }
