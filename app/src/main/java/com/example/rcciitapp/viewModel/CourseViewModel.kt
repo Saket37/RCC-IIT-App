@@ -1,5 +1,6 @@
 package com.example.rcciitapp.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rcciitapp.data.remote.entity.Data
@@ -40,10 +41,11 @@ class CourseViewModel @Inject constructor(
         viewModelScope.launch {
             //val token = dataStore.getToken().first()
             val token = sharedPreferenceManager.getToken()
-            token?.let { repository.getCourses(it) }?.collectLatest { resource ->
-                withContext(Dispatchers.Main) {
+            Log.d("TOKEN","Bearer $token")
+             repository.getCourses("Bearer $token").collectLatest { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
+                            Log.d("C_VM", resource.data?.data.toString())
                             if (resource.data?.status == "success") {
                                 resource.data.let {
                                     _uiState.value =
@@ -70,7 +72,7 @@ class CourseViewModel @Inject constructor(
                         }
                     }
                 }
-            }
+
         }
     }
 

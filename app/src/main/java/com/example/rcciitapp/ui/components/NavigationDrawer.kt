@@ -1,6 +1,7 @@
 package com.example.rcciitapp.ui.components
 
 import android.content.Intent
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -49,6 +50,8 @@ fun DrawerContent(
                     context.startActivity(Intent(context, AdminAuthActivity::class.java))
                 } else {
                     logout()
+                    Toast.makeText(context, "Successfully Logged Out", Toast.LENGTH_SHORT).show()
+
                     close()
                 }
             }) {
