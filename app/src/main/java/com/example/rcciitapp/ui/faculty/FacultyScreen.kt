@@ -38,21 +38,23 @@ import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.ui.components.FacultyAppBar
 import com.example.rcciitapp.viewModel.CourseState
 import com.example.rcciitapp.viewModel.CoursesViewModel
+import com.example.rcciitapp.viewModel.FacultyScreenUiState
+import com.example.rcciitapp.viewModel.FacultyScreenViewModel
 
 @OptIn(ExperimentalLifecycleComposeApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun FacultyScreen(
     modifier: Modifier = Modifier,
-    courseId: String,
+    //courseId: String,
     navController: NavHostController,
 ) {
-    val viewModel: CoursesViewModel = hiltViewModel()
-    viewModel.selectCourse(courseId)
+    val viewModel: FacultyScreenViewModel = hiltViewModel()
+    //viewModel.selectCourse(courseId)
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val topAppBarState = rememberTopAppBarState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(topAppBarState)
-    val isAdminLoggedIn = viewModel.isAdminLoggedIn.collectAsStateWithLifecycle().value
+    //val isAdminLoggedIn = viewModel.isAdminLoggedIn.collectAsStateWithLifecycle().value
     Scaffold(topBar = {
         FacultyAppBar(
             title = "Faculty",
@@ -60,7 +62,7 @@ fun FacultyScreen(
             onAddClicked = {
                 navController.navigate(Destination.AddFaculty.path)
             },
-            topAppBarState = topAppBarState, isAdminLoggedIn = isAdminLoggedIn
+            topAppBarState = topAppBarState, isAdminLoggedIn = true
         )
     }) { innerPadding ->
         Box(
@@ -74,10 +76,10 @@ fun FacultyScreen(
                 .nestedScroll(scrollBehavior.nestedScrollConnection),
             contentAlignment = Alignment.TopCenter
         ) {
-            viewModel.selectCourse(courseId)
+            //viewModel.selectCourse(courseId)
             FacultySection(
-                uiState = viewModel.courseUiState.collectAsStateWithLifecycle().value,
-                isAdminLoggedIn = isAdminLoggedIn,
+                uiState = viewModel.uiState.collectAsStateWithLifecycle().value,
+                isAdminLoggedIn = true,
             )
         }
 
@@ -89,10 +91,10 @@ fun FacultyScreen(
 @Composable
 fun FacultySection(
     modifier: Modifier = Modifier,
-    uiState: CourseState,
+    uiState: FacultyScreenUiState,
     isAdminLoggedIn: Boolean,
 ) {
-    val uiFacultyState = uiState.isSelectedCourse
+    val uiFacultyState = uiState.faculty
 
     if (uiState.isLoading) {
         Box(
@@ -105,46 +107,44 @@ fun FacultySection(
     } else {
         LazyColumn() {
 
-            if (uiFacultyState != null) {
-                items(items = uiFacultyState.faculty, key = { item -> item.id }) { faculty ->
-                    val dismissState = rememberDismissState(
-                        confirmStateChange = {
-                            when (it) {
-                                DismissValue.DismissedToEnd -> {
-                                    // Do Something when swipe Start To End
-                                    true
-                                }
+            items(items = uiFacultyState, key = { item -> item._id }) { faculty ->
+                val dismissState = rememberDismissState(
+                    confirmStateChange = {
+                        when (it) {
+                            DismissValue.DismissedToEnd -> {
+                                // Do Something when swipe Start To End
+                                true
+                            }
 
-                                DismissValue.DismissedToStart -> {
-                                    // Do Something when swipe End To Start
-                                    true
-                                }
+                            DismissValue.DismissedToStart -> {
+                                // Do Something when swipe End To Start
+                                true
+                            }
 
-                                else -> {
-                                    false
-                                }
+                            else -> {
+                                false
                             }
                         }
-                    )
-                    var willDismissDirection: DismissDirection? by remember {
-                        mutableStateOf(null)
                     }
-                    if (!isAdminLoggedIn) {
-                        FacultyCard(faculty = faculty)
-                    } else {
-                        SwipeToDismiss(
-                            directions = setOf(
-                                DismissDirection.StartToEnd,
-                                DismissDirection.EndToStart
-                            ),
-                            dismissThresholds = { FractionalThreshold(0.15f) },
-                            state = dismissState,
-                            background = {
-                                SwipeBackground(dismissState = dismissState)
-                            }
-                        ) {
-                            FacultyCard(faculty = faculty)
+                )
+                var willDismissDirection: DismissDirection? by remember {
+                    mutableStateOf(null)
+                }
+                if (!isAdminLoggedIn) {
+                    FacultyCard(faculty = faculty)
+                } else {
+                    SwipeToDismiss(
+                        directions = setOf(
+                            DismissDirection.StartToEnd,
+                            DismissDirection.EndToStart
+                        ),
+                        dismissThresholds = { FractionalThreshold(0.15f) },
+                        state = dismissState,
+                        background = {
+                            SwipeBackground(dismissState = dismissState)
                         }
+                    ) {
+                        FacultyCard(faculty = faculty)
                     }
                 }
             }

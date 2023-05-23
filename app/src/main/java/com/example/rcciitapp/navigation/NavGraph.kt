@@ -61,7 +61,7 @@ fun Navigation(
                     Text(text = "Gallery")
                 }
             }
-            composable(
+            /*composable(
                 route = Destination.Faculty.path + "/{courseId}",
                 arguments = listOf(navArgument("courseId") {
                     type = NavType.StringType
@@ -79,6 +79,15 @@ fun Navigation(
                             navController = navController
                         )
                     }
+                }
+            }*/
+            composable(route=Destination.Faculty.path){
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    FacultyScreen(navController = navController)
                 }
             }
             composable(route = Destination.AddFaculty.path) {

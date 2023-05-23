@@ -26,7 +26,7 @@ import com.example.rcciitapp.model.Faculty
 @Composable
 fun FacultyCard(
     modifier: Modifier = Modifier,
-    faculty: Faculty
+    faculty: com.example.rcciitapp.data.remote.entity.Faculty
 ) {
     Card(
         modifier = modifier
@@ -43,7 +43,7 @@ fun FacultyCard(
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            FacultyProfileImage(modifier = Modifier.padding(6.dp), image = faculty.image)
+            FacultyProfileImage(modifier = Modifier.padding(6.dp), image =  R.drawable.cse_anirban)
             Divider(
                 modifier = Modifier
                     .fillMaxHeight()
@@ -53,7 +53,7 @@ fun FacultyCard(
                 name = faculty.name,
                 degree = faculty.degree,
                 designation = faculty.designation,
-                doj = faculty.doj,
+                doj = faculty.dob,
                 email = faculty.email
             )
         }
@@ -120,18 +120,19 @@ fun FacultyProfileImagePreview() {
     FacultyProfileImage(image = R.drawable.cse_minakshi)
 }
 
+/*
 @Preview(showBackground = true)
 @Composable
 fun FacultyCardPreview() {
     FacultyCard(
-        faculty = Faculty(
-            id = "CSE_1",
+        faculty = com.example.rcciitapp.data.remote.entity.Faculty(
+            _id = "CSE_1",
             name = "Dr. Minakshi Banerjee",
             degree = "PhD (Engg.)",
-            doj = "01.09.2008",
+            dob = "01.09.2008",
             designation = "Professor",
             email = "minakshi.banerjee@rcciit.org.in",
-            image = R.drawable.cse_minakshi
+            image = "R.drawable.cse_minakshi"
         )
     )
-}
+}*/
