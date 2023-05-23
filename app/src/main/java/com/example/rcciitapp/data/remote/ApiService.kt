@@ -3,10 +3,7 @@ package com.example.rcciitapp.data.remote
 import com.example.rcciitapp.data.remote.entity.Courses
 import com.example.rcciitapp.data.remote.entity.Login
 import com.example.rcciitapp.data.remote.entity.LoginResponse
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface ApiService {
     @POST("users/login")
@@ -19,4 +16,9 @@ interface ApiService {
     suspend fun getCourses(
         @Header("Authorization") token: String
     ):Courses
+
+    @POST("faculty/{stream}")
+    suspend fun postFacultyData(
+        @Path("stream") stream: String,
+    )
 }
