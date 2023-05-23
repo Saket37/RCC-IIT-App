@@ -9,6 +9,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface Repository {
     suspend fun adminLogin(login: Login): Flow<Resource<LoginResponse>>
-    suspend fun getCourses(token: String): Flow<Resource<Courses>>
+    suspend fun getCourses(): Flow<Resource<Courses>>
     suspend fun getFaculty(stream:String):Flow<Resource<FacultyResponse>>
 }

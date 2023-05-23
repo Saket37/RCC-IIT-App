@@ -40,7 +40,7 @@ class CourseViewModel @Inject constructor(
             //val token = dataStore.getToken().first()
             val token = sharedPreferenceManager.getToken()
             Log.d("TOKEN", "Bearer $token")
-            repository.getCourses(token!!).collectLatest { resource ->
+            repository.getCourses().collectLatest { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         Log.d("C_VM", resource.data?.data.toString())

@@ -22,9 +22,9 @@ class RepositoryImpl @Inject constructor(private val apiService: ApiService) : R
         }
     }
 
-    override suspend fun getCourses(token: String): Flow<Resource<Courses>> = flow {
+    override suspend fun getCourses(): Flow<Resource<Courses>> = flow {
         try {
-            val resp = apiService.getCourses("Bearer $token")
+            val resp = apiService.getCourses()
             emit(Resource.success(resp))
         } catch (e: Exception) {
             emit(Resource.error(null, e.message.toString()))
