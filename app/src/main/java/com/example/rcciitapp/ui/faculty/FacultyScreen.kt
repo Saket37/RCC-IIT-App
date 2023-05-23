@@ -36,6 +36,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.ui.components.FacultyAppBar
 import com.example.rcciitapp.utils.FacultyEvent
@@ -95,7 +96,9 @@ fun FacultySection(
     modifier: Modifier = Modifier,
     uiState: FacultyScreenUiState,
     isAdminLoggedIn: Boolean,
-    handleEvent: (event: FacultyEvent) -> Unit
+    handleEvent: (event: FacultyEvent) -> Unit,
+    navController: NavHostController = rememberNavController()
+
 ) {
     val uiFacultyState = uiState.faculty
     val context = LocalContext.current
@@ -134,6 +137,7 @@ fun FacultySection(
                             }
 
                             DismissValue.DismissedToStart -> {
+                                navController.navigate(Destination.EditFaculty.withArgs(faculty._id))
                                 // Do Something when swipe End To Start
                                 true
                             }

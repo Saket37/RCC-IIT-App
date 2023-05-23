@@ -81,13 +81,32 @@ fun Navigation(
                     }
                 }
             }
-
+            composable(
+                route = Destination.EditFaculty.path + "/{facultyId}",
+                arguments =
+                listOf(navArgument("facultyId") {
+                    type = NavType.StringType
+                    nullable = false
+                })
+            ) {
+                val facultyId = it.arguments?.getString("facultyId")
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                ) {
+                    facultyId?.let { id ->
+                        EditFacultyScreen(
+                            id = id, navController = navController
+                        )
+                    }
+                }
+            }
             composable(route = Destination.AddFaculty.path) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize(),
                 ) {
-                    EditFacultyScreen()
+                    //EditFacultyScreen()
                 }
             }
             composable(Destination.Placement.path) {

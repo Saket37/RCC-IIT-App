@@ -4,14 +4,7 @@ import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -19,14 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.rememberScaffoldState
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.material3.TopAppBarDefaults
-import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -42,19 +28,23 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavHostController
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
 import com.example.rcciitapp.ui.components.EditFacultyAppBar
 import com.example.rcciitapp.ui.theme.md_theme_light_surface
 import com.example.rcciitapp.utils.FacultyUpdateEvent
-import com.example.rcciitapp.viewModel.FacultyUiState
-import com.example.rcciitapp.viewModel.FacultyViewModel
+import com.example.rcciitapp.viewModel.EditFacultyUiState
+import com.example.rcciitapp.viewModel.FacultyScreenViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 fun EditFacultyScreen(
-) {
-    val viewModel: FacultyViewModel = hiltViewModel()
+    id: String,
+    navController: NavHostController,
+
+    ) {
+    val viewModel: FacultyScreenViewModel = hiltViewModel()
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val topAppBarState = rememberTopAppBarState()
@@ -75,8 +65,8 @@ fun EditFacultyScreen(
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
         ) {
             EditFaculty(
-                uiState = viewModel.uiState.collectAsStateWithLifecycle().value,
-                handleEvent = viewModel::handleEvent
+                uiState = viewModel.editUiState.collectAsStateWithLifecycle().value,
+                handleEvent = viewModel::handleEditEvent
             )
         }
     }
@@ -84,7 +74,10 @@ fun EditFacultyScreen(
 
 
 @Composable
-fun EditFaculty(uiState: FacultyUiState, handleEvent: (event: FacultyUpdateEvent) -> Unit) {
+fun EditFaculty(
+    uiState: EditFacultyUiState,
+    handleEvent: (event: FacultyUpdateEvent) -> Unit,
+) {
     Column(modifier = Modifier.padding(16.dp)) {
         Spacer(modifier = Modifier.height(32.dp))
         Box(modifier = Modifier.fillMaxWidth()) {
@@ -216,8 +209,9 @@ fun EditFacultyAppBarPreview() {
     }
 }
 
+/*
 @Preview
 @Composable
 fun EditFacultyScreenPreview() {
-    EditFacultyScreen()
-}
+    EditFacultyScreen(id = "")
+}*/

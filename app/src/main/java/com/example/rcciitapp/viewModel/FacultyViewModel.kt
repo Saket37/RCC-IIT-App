@@ -8,22 +8,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
-data class FacultyUiState(
-    val name: String? = null,
-    val email: String? = null,
-    val doj: String? = null,
-    val degree: String? = null,
-    val designation: String? = null,
-    val isLoading: Boolean = false,
-    val error: String? = null,
-)
 
 @HiltViewModel
 class FacultyViewModel @Inject constructor(
     private val repository: Repository,
     private val dataStoreManager: DataStoreManager
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(FacultyUiState())
+    private val _uiState = MutableStateFlow(EditFacultyUiState())
     val uiState get() = _uiState
 
     private fun updateEmail(email: String) {

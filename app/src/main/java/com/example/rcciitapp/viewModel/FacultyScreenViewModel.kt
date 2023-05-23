@@ -6,6 +6,7 @@ import com.example.rcciitapp.data.remote.entity.DeleteFacultyResponse
 import com.example.rcciitapp.data.remote.entity.Faculty
 import com.example.rcciitapp.domain.repository.Repository
 import com.example.rcciitapp.utils.FacultyEvent
+import com.example.rcciitapp.utils.FacultyUpdateEvent
 import com.example.rcciitapp.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,6 +21,17 @@ data class FacultyScreenUiState(
 
     )
 
+data class EditFacultyUiState(
+    val id: String? = null,
+    val name: String? = null,
+    val email: String? = null,
+    val doj: String? = null,
+    val degree: String? = null,
+    val designation: String? = null,
+    val isLoading: Boolean = false,
+    val error: String? = null,
+)
+
 data class DeleteFacultyUiState(
     val faculty: DeleteFacultyResponse? = null,
     val deleted: Boolean = false,
@@ -30,6 +42,9 @@ data class DeleteFacultyUiState(
 class FacultyScreenViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
     private val _uiState = MutableStateFlow(FacultyScreenUiState())
     val uiState get() = _uiState
+
+    private val _editUiState = MutableStateFlow(EditFacultyUiState())
+    val editUiState get() = _editUiState
 
     private val _deleteUiState = MutableStateFlow(DeleteFacultyUiState())
     fun fetch(stream: String) {
@@ -68,7 +83,7 @@ class FacultyScreenViewModel @Inject constructor(private val repository: Reposit
         }
     }
 
-    fun deleteFaculty(id: String) {
+    private fun deleteFaculty(id: String) {
         viewModelScope.launch {
 
             repository.deleteFaculty(id = id).collectLatest { resource ->
@@ -111,6 +126,68 @@ class FacultyScreenViewModel @Inject constructor(private val repository: Reposit
     fun handleAuthEvent(event: FacultyEvent) {
         when (event) {
             is FacultyEvent.DeleteFaculty -> deleteFaculty(event.id)
+        }
+    }
+
+
+    private fun updateEmail(email: String) {
+        _editUiState.value = _editUiState.value.copy(email = email)
+    }
+
+    private fun updateName(name: String) {
+        _editUiState.value = _editUiState.value.copy(name = name)
+    }
+
+    private fun updateDegree(degree: String) {
+        _editUiState.value = _editUiState.value.copy(degree = degree)
+    }
+
+    private fun updateDoj(doj: String) {
+        _editUiState.value = _editUiState.value.copy(doj = doj)
+    }
+
+    private fun updateDesignation(designation: String) {
+        _editUiState.value = _editUiState.value.copy(designation = designation)
+    }
+
+    private fun dismissError() {
+        _editUiState.value = _editUiState.value.copy(error = null)
+    }
+
+    private fun fetchEditFacultyData(id: String) {
+        val faculty = _uiState.value.faculty.find { it._id == id }
+        if (faculty != null) {
+            _editUiState.value = _editUiState.value.copy(
+                id = faculty._id,
+                name = faculty.name,
+                email = faculty.email,
+                doj = faculty.dob,
+                degree = faculty.degree, designation = faculty.designation
+            )
+        }
+    }
+
+    fun handleEditEvent(event: FacultyUpdateEvent) {
+        when (event) {
+            is FacultyUpdateEvent.NameChanged -> {
+                updateName(event.name)
+            }
+
+            is FacultyUpdateEvent.DegreeChanged -> {
+                updateDegree(event.degree)
+            }
+
+            is FacultyUpdateEvent.DesignationChanged -> {
+                updateDesignation(event.designation)
+            }
+
+            is FacultyUpdateEvent.DojChanged -> {
+                updateDoj(event.doj)
+            }
+
+            is FacultyUpdateEvent.EmailChanged -> {
+                updateEmail(event.email)
+            }
         }
     }
 }
