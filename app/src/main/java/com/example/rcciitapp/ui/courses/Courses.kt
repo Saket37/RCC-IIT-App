@@ -1,27 +1,19 @@
 package com.example.rcciitapp.ui.courses
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.Text
-import androidx.compose.material3.Divider
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.rcciitapp.navigation.Destination
-import com.example.rcciitapp.viewModel.CourseState
 import com.example.rcciitapp.viewModel.CourseUiState
 import com.example.rcciitapp.viewModel.CourseViewModel
-import com.example.rcciitapp.viewModel.CoursesViewModel
 
 /**
  * Courses Tab View
@@ -44,13 +36,33 @@ fun CourseContent(
     uiState: CourseUiState,
     navController: NavHostController = rememberNavController()
 ) {
+    val context = LocalContext.current
     Box(
         modifier = Modifier
             .fillMaxSize(),
         //contentAlignment = Alignment.Center
     ) {
-
+        LazyColumn() {
+            if (uiState.isLoading) {
+                items(10) {
+                    ShimmerCourseCard()
+                }
+            } else if (uiState.error?.isNotBlank() == true || uiState.error?.isNotBlank() == true) {
+                Toast.makeText(context, uiState.error, Toast.LENGTH_SHORT).show()
+            } else {
+                items(uiState.courses) {
+                    CoursesCard(
+                        onNavigate = { /*TODO*/ },
+                        title = it.courseName,
+                        branch = it.branch,
+                        duration = it.duration,
+                        intake = it.intake
+                    )
+                }
+            }
+        }
         //var size by remember { mutableStateOf(Size.Zero) }
+/*
         LazyColumn() {
             if (uiState.isLoading) {
                 items(10) {
@@ -87,11 +99,13 @@ fun CourseContent(
                                     .fillMaxSize()
                                     .aspectRatio(1f),
                                 onNavigate = {
-                                    /*navController.navigate(
+                                    */
+/*navController.navigate(
                                         Destination.Faculty.withArgs(
                                             it.id
                                         )
-                                    )*/
+                                    )*//*
+
                                 },
                                 title = it.courseName,
                                 branch = it.branch,
@@ -137,11 +151,13 @@ fun CourseContent(
                                     .fillMaxSize()
                                     .aspectRatio(1f),
                                 onNavigate = {
-                                    /*navController.navigate(
+                                    */
+/*navController.navigate(
                                         Destination.Faculty.withArgs(
                                             it.id
                                         )
-                                    )*/
+                                    )*//*
+
                                 },
                                 title = it.courseName,
                                 branch = it.branch,
@@ -186,11 +202,13 @@ fun CourseContent(
                                     .fillMaxSize()
                                     .aspectRatio(1f),
                                 onNavigate = {
-                                    /*navController.navigate(
+                                    */
+/*navController.navigate(
                                         Destination.Faculty.withArgs(
                                             it.id
                                         )
-                                    )*/
+                                    )*//*
+
                                 },
                                 title = it.courseName,
                                 branch = it.branch,
@@ -206,6 +224,7 @@ fun CourseContent(
 
             }
         }
+*/
     }
 
 }

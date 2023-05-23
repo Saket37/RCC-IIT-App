@@ -1,12 +1,12 @@
 package com.example.rcciitapp.data.remote.entity
 
 data class Courses(
-    val `data`: List<Data>,
+    val `data`: List<CourseData>,
     val status: String,
     val message: String?
 )
 
-data class Data(
+data class CourseData(
     val __v: Int,
     val _id: String,
     val branch: String,

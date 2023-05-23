@@ -3,7 +3,7 @@ package com.example.rcciitapp.viewModel
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rcciitapp.data.remote.entity.Data
+import com.example.rcciitapp.data.remote.entity.CourseData
 import com.example.rcciitapp.domain.repository.Repository
 import com.example.rcciitapp.utils.DataStoreManager
 import com.example.rcciitapp.utils.SharedPreferenceManager
@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 data class CourseUiState(
-    val courses: List<Data> = emptyList(),
+    val courses: List<CourseData> = emptyList(),
     val isLoading: Boolean = false,
     val error: String? = null,
 )
@@ -38,8 +38,8 @@ class CourseViewModel @Inject constructor(
         _uiState.value = _uiState.value.copy(isLoading = true)
         viewModelScope.launch {
             //val token = dataStore.getToken().first()
-            val token = sharedPreferenceManager.getToken()
-            Log.d("TOKEN", "Bearer $token")
+            //val token = sharedPreferenceManager.getToken()
+           // Log.d("TOKEN", "Bearer $token")
             repository.getCourses().collectLatest { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
