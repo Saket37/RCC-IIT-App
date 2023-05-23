@@ -29,7 +29,7 @@ fun CoursesCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { //onNavigate()
+            .clickable { onNavigate()
             }
             .padding(top = 12.dp, start = 12.dp, end = 12.dp, bottom = 12.dp),
         colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer),

@@ -23,7 +23,7 @@ fun BottomNavBar(
         listOf(
             Destination.RCC,
             Destination.Update,
-            Destination.Faculty,
+            Destination.Gallery,
             Destination.Courses
         ).forEach {
             val selectedTab = currentDestination.path == it.path

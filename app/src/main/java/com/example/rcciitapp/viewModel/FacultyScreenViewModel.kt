@@ -23,14 +23,11 @@ class FacultyScreenViewModel @Inject constructor(private val repository: Reposit
     private val _uiState = MutableStateFlow(FacultyScreenUiState())
     val uiState get() = _uiState
 
-    init {
-        fetch()
-    }
 
-    private fun fetch() {
+    fun fetch(stream: String) {
         _uiState.value = _uiState.value.copy(isLoading = true)
         viewModelScope.launch {
-            repository.getFaculty("CSE").collectLatest { resource ->
+            repository.getFaculty(stream=stream).collectLatest { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         if (resource.data?.status == "success") {

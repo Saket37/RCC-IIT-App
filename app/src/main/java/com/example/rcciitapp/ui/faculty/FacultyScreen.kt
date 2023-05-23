@@ -36,8 +36,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.ui.components.FacultyAppBar
-import com.example.rcciitapp.viewModel.CourseState
-import com.example.rcciitapp.viewModel.CoursesViewModel
 import com.example.rcciitapp.viewModel.FacultyScreenUiState
 import com.example.rcciitapp.viewModel.FacultyScreenViewModel
 
@@ -45,11 +43,11 @@ import com.example.rcciitapp.viewModel.FacultyScreenViewModel
 @Composable
 fun FacultyScreen(
     modifier: Modifier = Modifier,
-    //courseId: String,
+    stream: String,
     navController: NavHostController,
 ) {
     val viewModel: FacultyScreenViewModel = hiltViewModel()
-    //viewModel.selectCourse(courseId)
+    viewModel.fetch(stream = stream)
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val topAppBarState = rememberTopAppBarState()

@@ -19,6 +19,7 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.viewModel.CourseUiState
 import com.example.rcciitapp.viewModel.CourseViewModel
 
@@ -80,7 +81,13 @@ fun CourseContent(
                             contentAlignment = Alignment.Center
                         ) {
                             CoursesCard(
-                                onNavigate = { /*TODO*/ },
+                                onNavigate = {
+                                    navController.navigate(
+                                        Destination.Faculty.withArgs(
+                                            it.stream
+                                        )
+                                    )
+                                },
                                 title = it.courseName,
                                 branch = it.branch,
                                 duration = it.duration,
@@ -114,7 +121,13 @@ fun CourseContent(
                             contentAlignment = Alignment.Center
                         ) {
                             CoursesCard(
-                                onNavigate = { /*TODO*/ },
+                                onNavigate = {
+                                    navController.navigate(
+                                        Destination.Faculty.withArgs(
+                                            it.stream
+                                        )
+                                    )
+                                },
                                 title = it.courseName,
                                 branch = it.branch,
                                 duration = it.duration,
@@ -147,7 +160,13 @@ fun CourseContent(
                             contentAlignment = Alignment.Center
                         ) {
                             CoursesCard(
-                                onNavigate = { /*TODO*/ },
+                                onNavigate = {
+                                    navController.navigate(
+                                        Destination.Faculty.withArgs(
+                                            it.stream
+                                        )
+                                    )
+                                },
                                 title = it.courseName,
                                 branch = it.branch,
                                 duration = it.duration,

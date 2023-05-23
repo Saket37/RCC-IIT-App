@@ -61,35 +61,27 @@ fun Navigation(
                     Text(text = "Gallery")
                 }
             }
-            /*composable(
-                route = Destination.Faculty.path + "/{courseId}",
-                arguments = listOf(navArgument("courseId") {
+            composable(
+                route = Destination.Faculty.path + "/{stream}",
+                arguments = listOf(navArgument("stream") {
                     type = NavType.StringType
                     nullable = false
                 })
             ) {
-                val courseId = it.arguments?.getString("courseId")
+                val stream = it.arguments?.getString("stream")
                 Box(
                     modifier = Modifier
                         .fillMaxSize(),
                 ) {
-                    courseId?.let { it1 ->
+                    stream?.let { it1 ->
                         FacultyScreen(
-                            courseId = it1,
+                            stream = it1,
                             navController = navController
                         )
                     }
                 }
-            }*/
-            composable(route=Destination.Faculty.path){
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    FacultyScreen(navController = navController)
-                }
             }
+
             composable(route = Destination.AddFaculty.path) {
                 Box(
                     modifier = Modifier
