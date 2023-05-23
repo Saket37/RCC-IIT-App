@@ -2,8 +2,10 @@ package com.example.rcciitapp.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.rcciitapp.data.remote.entity.DeleteFacultyResponse
 import com.example.rcciitapp.data.remote.entity.Faculty
 import com.example.rcciitapp.domain.repository.Repository
+import com.example.rcciitapp.utils.FacultyEvent
 import com.example.rcciitapp.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,16 +20,22 @@ data class FacultyScreenUiState(
 
     )
 
+data class DeleteFacultyUiState(
+    val faculty: DeleteFacultyResponse? = null,
+    val deleted: Boolean = false,
+    val error: String? = null
+)
+
 @HiltViewModel
 class FacultyScreenViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
     private val _uiState = MutableStateFlow(FacultyScreenUiState())
     val uiState get() = _uiState
 
-
+    private val _deleteUiState = MutableStateFlow(DeleteFacultyUiState())
     fun fetch(stream: String) {
         _uiState.value = _uiState.value.copy(isLoading = true)
         viewModelScope.launch {
-            repository.getFaculty(stream=stream).collectLatest { resource ->
+            repository.getFaculty(stream = stream).collectLatest { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         if (resource.data?.status == "success") {
@@ -57,6 +65,52 @@ class FacultyScreenViewModel @Inject constructor(private val repository: Reposit
                 }
 
             }
+        }
+    }
+
+    fun deleteFaculty(id: String) {
+        viewModelScope.launch {
+
+            repository.deleteFaculty(id = id).collectLatest { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        if (resource.data?.status == "success") {
+                            resource.data.let {
+                                val course = _uiState.value.faculty.find { it._id == id }
+                                if (course != null) {
+                                    _uiState.value = _uiState.value.copy(
+                                        faculty = _uiState.value.faculty.toMutableList()
+                                            .apply { remove(course) }
+                                    )
+                                }
+                            }
+                        }
+                    }
+                    Status.ERROR -> {
+                        if (resource.data?.status == "fail") {
+                            _uiState.value =
+                                _uiState.value.copy(
+                                    isLoading = false,
+                                    error = resource.data.message
+                                )
+                        } else {
+                            _uiState.value = _uiState.value.copy(
+                                isLoading = false,
+                                error = resource.message
+                            )
+                        }
+                    }
+                    Status.LOADING -> {
+
+                    }
+                }
+            }
+        }
+    }
+
+    fun handleAuthEvent(event: FacultyEvent) {
+        when (event) {
+            is FacultyEvent.DeleteFaculty -> deleteFaculty(event.id)
         }
     }
 }

@@ -18,4 +18,9 @@ interface ApiService {
     suspend fun postFacultyData(
         @Path("stream") stream: String,
     ): FacultyResponse
+
+    @DELETE("faculty/delete/{id}")
+    suspend fun deleteFaculty(
+        @Path("id") id: String
+    ): DeleteFacultyResponse
 }

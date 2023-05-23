@@ -52,7 +52,8 @@ import com.example.rcciitapp.viewModel.FacultyViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLifecycleComposeApi::class)
 @Composable
-fun EditFacultyScreen() {
+fun EditFacultyScreen(
+) {
     val viewModel: FacultyViewModel = hiltViewModel()
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()

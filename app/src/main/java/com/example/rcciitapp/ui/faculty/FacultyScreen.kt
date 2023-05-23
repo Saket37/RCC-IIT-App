@@ -1,5 +1,6 @@
 package com.example.rcciitapp.ui.faculty
 
+import android.widget.Toast
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -29,6 +30,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
@@ -36,6 +38,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.ui.components.FacultyAppBar
+import com.example.rcciitapp.utils.FacultyEvent
 import com.example.rcciitapp.viewModel.FacultyScreenUiState
 import com.example.rcciitapp.viewModel.FacultyScreenViewModel
 
@@ -78,6 +81,7 @@ fun FacultyScreen(
             FacultySection(
                 uiState = viewModel.uiState.collectAsStateWithLifecycle().value,
                 isAdminLoggedIn = true,
+                handleEvent = viewModel::handleAuthEvent
             )
         }
 
@@ -91,9 +95,10 @@ fun FacultySection(
     modifier: Modifier = Modifier,
     uiState: FacultyScreenUiState,
     isAdminLoggedIn: Boolean,
+    handleEvent: (event: FacultyEvent) -> Unit
 ) {
     val uiFacultyState = uiState.faculty
-
+    val context = LocalContext.current
     if (uiState.isLoading) {
         Box(
             modifier = Modifier
@@ -110,6 +115,20 @@ fun FacultySection(
                     confirmStateChange = {
                         when (it) {
                             DismissValue.DismissedToEnd -> {
+                                handleEvent(FacultyEvent.DeleteFaculty(faculty._id))
+                                if (uiState.error?.isNotBlank() == true || uiState.error?.isNotEmpty() == true) {
+                                    Toast.makeText(
+                                        context,
+                                        "Error occurred, Please, try again",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } else {
+                                    Toast.makeText(
+                                        context,
+                                        "Deleted Successfully",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
                                 // Do Something when swipe Start To End
                                 true
                             }
