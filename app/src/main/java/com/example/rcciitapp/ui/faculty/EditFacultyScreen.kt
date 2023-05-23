@@ -1,6 +1,7 @@
 package com.example.rcciitapp.ui.faculty
 
 import android.net.Uri
+import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -45,13 +46,19 @@ fun EditFacultyScreen(
 
     ) {
     val viewModel: FacultyScreenViewModel = hiltViewModel()
+    Log.d("EditFacultyScreen_id",id)
+    viewModel.fetchEditFacultyData(id = id)
+    val uiState = viewModel.editUiState.collectAsState()
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val topAppBarState = rememberTopAppBarState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(topAppBarState)
     Scaffold(
         topBar = {
-            EditFacultyAppBar(title = "title", onCancelled = { }, onSaveClicked = {})
+            EditFacultyAppBar(
+                title = "Edit",
+                onCancelled = { navController.popBackStack() },
+                onSaveClicked = {})
         },
     ) { innerPadding ->
         Box(
@@ -64,8 +71,9 @@ fun EditFacultyScreen(
                 )
                 .nestedScroll(scrollBehavior.nestedScrollConnection)
         ) {
+            //viewModel.fetchEditFacultyData(id)
             EditFaculty(
-                uiState = viewModel.editUiState.collectAsStateWithLifecycle().value,
+                uiState = uiState.value,
                 handleEvent = viewModel::handleEditEvent
             )
         }

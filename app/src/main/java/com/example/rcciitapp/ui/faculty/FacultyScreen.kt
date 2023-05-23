@@ -82,7 +82,8 @@ fun FacultyScreen(
             FacultySection(
                 uiState = viewModel.uiState.collectAsStateWithLifecycle().value,
                 isAdminLoggedIn = true,
-                handleEvent = viewModel::handleAuthEvent
+                handleEvent = viewModel::handleAuthEvent,
+                navController = navController
             )
         }
 
@@ -136,11 +137,11 @@ fun FacultySection(
                                 true
                             }
 
-                            DismissValue.DismissedToStart -> {
-                                navController.navigate(Destination.EditFaculty.withArgs(faculty._id))
-                                // Do Something when swipe End To Start
-                                true
-                            }
+//                            DismissValue.DismissedToStart -> {
+//                                navController.navigate(Destination.EditFaculty.withArgs(faculty._id))
+//                                // Do Something when swipe End To Start
+//                                true
+//                            }
 
                             else -> {
                                 false
@@ -152,12 +153,12 @@ fun FacultySection(
                     mutableStateOf(null)
                 }
                 if (!isAdminLoggedIn) {
-                    FacultyCard(faculty = faculty)
+                    FacultyCard(faculty = faculty, onNavigate = {})
                 } else {
                     SwipeToDismiss(
                         directions = setOf(
                             DismissDirection.StartToEnd,
-                            DismissDirection.EndToStart
+                            // DismissDirection.EndToStart
                         ),
                         dismissThresholds = { FractionalThreshold(0.15f) },
                         state = dismissState,
@@ -165,7 +166,10 @@ fun FacultySection(
                             SwipeBackground(dismissState = dismissState)
                         }
                     ) {
-                        FacultyCard(faculty = faculty)
+                        FacultyCard(faculty = faculty, onNavigate = {
+                            navController.navigate(Destination.EditFaculty.withArgs(faculty._id))
+
+                        })
                     }
                 }
             }

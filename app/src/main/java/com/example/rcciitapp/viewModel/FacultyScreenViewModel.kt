@@ -1,5 +1,6 @@
 package com.example.rcciitapp.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rcciitapp.data.remote.entity.DeleteFacultyResponse
@@ -22,6 +23,7 @@ data class FacultyScreenUiState(
     )
 
 data class EditFacultyUiState(
+    val faculty: List<Faculty> = emptyList(),
     val id: String? = null,
     val name: String? = null,
     val email: String? = null,
@@ -57,6 +59,8 @@ class FacultyScreenViewModel @Inject constructor(private val repository: Reposit
                             resource.data.let {
                                 _uiState.value =
                                     _uiState.value.copy(faculty = it.data, isLoading = false)
+                                _editUiState.value =
+                                    _editUiState.value.copy(faculty = it.data, isLoading = false)
                             }
                         }
                     }
@@ -154,17 +158,23 @@ class FacultyScreenViewModel @Inject constructor(private val repository: Reposit
         _editUiState.value = _editUiState.value.copy(error = null)
     }
 
-    private fun fetchEditFacultyData(id: String) {
-        val faculty = _uiState.value.faculty.find { it._id == id }
+    fun fetchEditFacultyData(id: String) {
+        Log.d("UI_STATE", _editUiState.value.faculty.toString())
+        Log.d("VM_ID", id)
+        val faculty =
+            _editUiState.value.faculty.find { it._id.toString() == id } // Convert id to the same type as _id
+        Log.d("Find", faculty.toString())
         if (faculty != null) {
-            _editUiState.value = _editUiState.value.copy(
+            _editUiState.value = EditFacultyUiState(
                 id = faculty._id,
                 name = faculty.name,
                 email = faculty.email,
                 doj = faculty.dob,
-                degree = faculty.degree, designation = faculty.designation
+                degree = faculty.degree,
+                designation = faculty.designation
             )
         }
+
     }
 
     fun handleEditEvent(event: FacultyUpdateEvent) {

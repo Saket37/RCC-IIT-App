@@ -31,7 +31,14 @@ sealed class Destination(
             }
         }
     }
-
+    fun args(vararg args: String): String {
+        return buildString {
+            append(path)
+            args.forEach { arg ->
+                append("/$arg")
+            }
+        }
+    }
     object Home : Destination("rccHome", isRootDestination = true)
     object RCC : Destination(
         path = "home",

@@ -1,5 +1,6 @@
 package com.example.rcciitapp.navigation
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
@@ -82,25 +83,26 @@ fun Navigation(
                 }
             }
             composable(
-                route = Destination.EditFaculty.path + "/{facultyId}",
-                arguments =
-                listOf(navArgument("facultyId") {
+                route = Destination.EditFaculty.path + "/{_id}",
+                arguments = listOf(navArgument("_id") {
                     type = NavType.StringType
                     nullable = false
                 })
-            ) {
-                val facultyId = it.arguments?.getString("facultyId")
+            ) { backStackEntry ->
+                val facultyId = backStackEntry.arguments?.getString("_id")
+                Log.d("FACULTY_ID",facultyId.toString())
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                 ) {
                     facultyId?.let { id ->
                         EditFacultyScreen(
-                            id = id, navController = navController
+                            id = id,
+                            navController = navController
                         )
                     }
                 }
             }
+
             composable(route = Destination.AddFaculty.path) {
                 Box(
                     modifier = Modifier

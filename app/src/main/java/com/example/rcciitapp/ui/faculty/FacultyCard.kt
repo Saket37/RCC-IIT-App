@@ -1,6 +1,7 @@
 package com.example.rcciitapp.ui.faculty
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,12 +27,14 @@ import com.example.rcciitapp.model.Faculty
 @Composable
 fun FacultyCard(
     modifier: Modifier = Modifier,
-    faculty: com.example.rcciitapp.data.remote.entity.Faculty
-) {
+    faculty: com.example.rcciitapp.data.remote.entity.Faculty,
+    onNavigate: () -> Unit,
+
+    ) {
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(top = 12.dp, start = 12.dp, end = 12.dp, bottom = 12.dp),
+            .padding(top = 12.dp, start = 12.dp, end = 12.dp, bottom = 12.dp).clickable { onNavigate() },
         elevation = CardDefaults.cardElevation(16.dp),
         shape = RoundedCornerShape(16.dp)
     ) {
