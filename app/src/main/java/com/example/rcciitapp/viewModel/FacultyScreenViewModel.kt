@@ -1,12 +1,9 @@
 package com.example.rcciitapp.viewModel
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.rcciitapp.data.remote.entity.Data
+import com.example.rcciitapp.data.remote.entity.Faculty
 import com.example.rcciitapp.domain.repository.Repository
-import com.example.rcciitapp.utils.DataStoreManager
-import com.example.rcciitapp.utils.SharedPreferenceManager
 import com.example.rcciitapp.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,43 +11,32 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-data class CourseUiState(
-    val courses: List<Data> = emptyList(),
+data class FacultyScreenUiState(
+    val faculty: List<Faculty> = emptyList(),
     val isLoading: Boolean = false,
     val error: String? = null,
-)
+
+    )
 
 @HiltViewModel
-class CourseViewModel @Inject constructor(
-    private val repository: Repository,
-    private val dataStore: DataStoreManager,
-    private val sharedPreferenceManager: SharedPreferenceManager
-
-) : ViewModel() {
-    private val _uiState = MutableStateFlow(CourseUiState())
+class FacultyScreenViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+    private val _uiState = MutableStateFlow(FacultyScreenUiState())
     val uiState get() = _uiState
 
     init {
-        fetchCourses()
+        fetch()
     }
 
-    private fun fetchCourses() {
+    private fun fetch() {
         _uiState.value = _uiState.value.copy(isLoading = true)
         viewModelScope.launch {
-            //val token = dataStore.getToken().first()
-            val token = sharedPreferenceManager.getToken()
-            Log.d("TOKEN", "Bearer $token")
-            repository.getCourses("Bearer $token").collectLatest { resource ->
+            repository.getFaculty("CSE").collectLatest { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        Log.d("C_VM", resource.data?.data.toString())
                         if (resource.data?.status == "success") {
                             resource.data.let {
                                 _uiState.value =
-                                    _uiState.value.copy(
-                                        courses = resource.data.data,
-                                        isLoading = false
-                                    )
+                                    _uiState.value.copy(faculty = it.data, isLoading = false)
                             }
                         }
                     }
@@ -72,10 +58,8 @@ class CourseViewModel @Inject constructor(
                         _uiState.value = _uiState.value.copy(isLoading = true)
                     }
                 }
-            }
 
+            }
         }
     }
-
-
 }

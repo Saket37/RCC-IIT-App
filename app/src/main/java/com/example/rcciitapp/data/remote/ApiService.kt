@@ -1,8 +1,6 @@
 package com.example.rcciitapp.data.remote
 
-import com.example.rcciitapp.data.remote.entity.Courses
-import com.example.rcciitapp.data.remote.entity.Login
-import com.example.rcciitapp.data.remote.entity.LoginResponse
+import com.example.rcciitapp.data.remote.entity.*
 import retrofit2.http.*
 
 interface ApiService {
@@ -20,5 +18,5 @@ interface ApiService {
     @POST("faculty/{stream}")
     suspend fun postFacultyData(
         @Path("stream") stream: String,
-    )
+    ):FacultyResponse
 }
