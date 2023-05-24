@@ -25,11 +25,11 @@ data class FacultyScreenUiState(
 data class EditFacultyUiState(
     val faculty: List<Faculty> = emptyList(),
     val id: String? = null,
-    val name: String? = null,
-    val email: String? = null,
-    val doj: String? = null,
-    val degree: String? = null,
-    val designation: String? = null,
+    var name: String? = null,
+    var email: String? = null,
+    var doj: String? = null,
+    var degree: String? = null,
+    var designation: String? = null,
     val isLoading: Boolean = false,
     val error: String? = null,
 )
@@ -47,6 +47,7 @@ class FacultyScreenViewModel @Inject constructor(private val repository: Reposit
 
     private val _editUiState = MutableStateFlow(EditFacultyUiState())
     val editUiState get() = _editUiState
+    private val edit = mutableListOf<Faculty>()
 
     private val _deleteUiState = MutableStateFlow(DeleteFacultyUiState())
     fun fetch(stream: String) {
@@ -61,6 +62,10 @@ class FacultyScreenViewModel @Inject constructor(private val repository: Reposit
                                     _uiState.value.copy(faculty = it.data, isLoading = false)
                                 _editUiState.value =
                                     _editUiState.value.copy(faculty = it.data, isLoading = false)
+                                edit.clear()
+
+                                edit.addAll(it.data)
+                                Log.d("EDIT", edit.toString())
                             }
                         }
                     }
@@ -159,13 +164,14 @@ class FacultyScreenViewModel @Inject constructor(private val repository: Reposit
     }
 
     fun fetchEditFacultyData(id: String) {
+        Log.d("EDIT_LIST", edit.toString())
         Log.d("UI_STATE", _editUiState.value.faculty.toString())
         Log.d("VM_ID", id)
         val faculty =
-            _editUiState.value.faculty.find { it._id.toString() == id } // Convert id to the same type as _id
+            edit.find { it._id.toString() == id } // Convert id to the same type as _id
         Log.d("Find", faculty.toString())
         if (faculty != null) {
-            _editUiState.value = EditFacultyUiState(
+            _editUiState.value = _editUiState.value.copy(
                 id = faculty._id,
                 name = faculty.name,
                 email = faculty.email,

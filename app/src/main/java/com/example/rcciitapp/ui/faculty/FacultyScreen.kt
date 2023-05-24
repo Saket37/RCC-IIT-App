@@ -43,7 +43,7 @@ import com.example.rcciitapp.utils.FacultyEvent
 import com.example.rcciitapp.viewModel.FacultyScreenUiState
 import com.example.rcciitapp.viewModel.FacultyScreenViewModel
 
-@OptIn(ExperimentalLifecycleComposeApi::class, ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalLifecycleComposeApi::class)
 @Composable
 fun FacultyScreen(
     modifier: Modifier = Modifier,
@@ -167,7 +167,16 @@ fun FacultySection(
                         }
                     ) {
                         FacultyCard(faculty = faculty, onNavigate = {
-                            navController.navigate(Destination.EditFaculty.withArgs(faculty._id))
+                            navController.navigate(
+                                Destination.EditFaculty.withArgs(
+                                    faculty._id,
+                                    faculty.name,
+                                    faculty.email,
+                                    faculty.dob,
+                                    faculty.degree,
+                                    faculty.designation
+                                )
+                            )
 
                         })
                     }

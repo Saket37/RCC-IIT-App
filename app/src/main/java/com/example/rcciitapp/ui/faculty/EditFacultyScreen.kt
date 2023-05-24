@@ -28,7 +28,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
@@ -43,12 +42,22 @@ import com.example.rcciitapp.viewModel.FacultyScreenViewModel
 fun EditFacultyScreen(
     id: String,
     navController: NavHostController,
+    name: String,
+    email: String,
+    doj: String,
+    degree: String,
+    designation: String
 
-    ) {
+) {
     val viewModel: FacultyScreenViewModel = hiltViewModel()
-    Log.d("EditFacultyScreen_id",id)
-    viewModel.fetchEditFacultyData(id = id)
+    Log.d("EditFacultyScreen_id", id)
+    //viewModel.fetchEditFacultyData(id = id)
     val uiState = viewModel.editUiState.collectAsState()
+    uiState.value.name = name
+    uiState.value.degree = degree
+    uiState.value.email = email
+    uiState.value.doj = doj
+    uiState.value.designation = designation
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
     val topAppBarState = rememberTopAppBarState()

@@ -121,21 +121,27 @@ fun HomeScreen(
             }
         },
         bottomBar = {
-            BottomAppBar(
-                modifier = Modifier
-                /*.height(bottomBarHeight)
-                .offset { IntOffset(x = 0, y = -bottomBarOffsetHeightPx.value.roundToInt()) },*/
-            ) {
-                BottomNavBar(currentDestination = currentDestination, onNavigate = {
-                    navController.navigate(it.path) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
-                        }
-                        launchSingleTop = true
-                        restoreState = true
+            when (currentDestination) {
+                Destination.RCC, Destination.Courses, Destination.Gallery, Destination.Update -> {
+                    BottomAppBar(
+                        modifier = Modifier
+                        /*.height(bottomBarHeight)
+                        .offset { IntOffset(x = 0, y = -bottomBarOffsetHeightPx.value.roundToInt()) },*/
+                    ) {
+                        BottomNavBar(currentDestination = currentDestination, onNavigate = {
+                            navController.navigate(it.path) {
+                                popUpTo(navController.graph.findStartDestination().id) {
+                                    saveState = true
+                                }
+                                launchSingleTop = true
+                                restoreState = true
+                            }
+                        })
                     }
-                })
+                }
+                else -> {}
             }
+
         },
 
         ) { innerPadding ->

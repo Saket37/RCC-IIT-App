@@ -3,7 +3,6 @@ package com.example.rcciitapp.navigation
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,6 +16,7 @@ import androidx.navigation.navigation
 import com.example.rcciitapp.ui.courses.Course
 import com.example.rcciitapp.ui.faculty.EditFacultyScreen
 import com.example.rcciitapp.ui.faculty.FacultyScreen
+import com.example.rcciitapp.ui.gallery.GalleryScreen
 import com.example.rcciitapp.ui.placement.PlacementScreen
 import com.example.rcciitapp.ui.rccHome.RccHome
 import com.example.rcciitapp.ui.updates.Updates
@@ -59,7 +59,7 @@ fun Navigation(
                         .fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    Text(text = "Gallery")
+                    GalleryScreen()
                 }
             }
             composable(
@@ -82,26 +82,71 @@ fun Navigation(
                     }
                 }
             }
-            composable(
-                route = Destination.EditFaculty.path + "/{_id}",
-                arguments = listOf(navArgument("_id") {
-                    type = NavType.StringType
-                    nullable = false
-                })
+            composable(route = Destination.EditFaculty.path + "/{_id}/{name}/{email}/{doj}/{degree}/{designation}",
+                arguments = listOf(
+                    navArgument("_id") {
+                        type = NavType.StringType
+                        nullable = false
+                    },
+                    navArgument("name") {
+                        type = NavType.StringType
+                        nullable = false
+                    },
+                    navArgument("email") {
+                        type = NavType.StringType
+                        nullable = false
+                    },
+                    navArgument("doj") {
+                        type = NavType.StringType
+                        nullable = false
+                    },
+                    navArgument("degree") {
+                        type = NavType.StringType
+                        nullable = false
+                    },
+                    navArgument("designation") {
+                        type = NavType.StringType
+                        nullable = false
+                    }
+                )
+
             ) { backStackEntry ->
                 val facultyId = backStackEntry.arguments?.getString("_id")
-                Log.d("FACULTY_ID",facultyId.toString())
+                val facultyName = backStackEntry.arguments?.getString("name")
+                val facultyEmail = backStackEntry.arguments?.getString("email")
+                val facultyDoj = backStackEntry.arguments?.getString("doj")
+                val facultyDegree = backStackEntry.arguments?.getString("degree")
+                val facultyDesignation = backStackEntry.arguments?.getString("designation")
+
+                Log.d("FACULTY_ID", facultyId.toString())
                 Box(
                     modifier = Modifier.fillMaxSize(),
                 ) {
                     facultyId?.let { id ->
-                        EditFacultyScreen(
-                            id = id,
-                            navController = navController
-                        )
+                        facultyName?.let { name ->
+                            facultyDegree?.let {
+                                facultyEmail?.let { email ->
+                                    facultyDoj?.let { doj ->
+                                        facultyDesignation?.let { designation ->
+                                            EditFacultyScreen(
+                                                id = id,
+                                                name = name,
+                                                email = email,
+                                                doj = doj,
+                                                degree = it,
+                                                designation = designation,
+                                                navController = navController
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
+
+
 
             composable(route = Destination.AddFaculty.path) {
                 Box(
@@ -113,14 +158,16 @@ fun Navigation(
             }
             composable(Destination.Placement.path) {
                 Box(modifier = Modifier.fillMaxSize()) {
-                    PlacementScreen()
+                    PlacementScreen(
+                        navController = navController
+                    )
                 }
             }
         }
 
-        /*composable(route = Destination.AdminLogin.path) {
-            AdminAuth()
-        }*/
+/*composable(route = Destination.AdminLogin.path) {
+    AdminAuth()
+}*/
     }
 
 }

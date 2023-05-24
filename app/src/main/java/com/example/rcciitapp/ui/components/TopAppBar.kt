@@ -106,3 +106,18 @@ fun EditFacultyAppBar(
         }
     })
 }
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ChildAppBar(modifier: Modifier = Modifier, title: String, onCancelled: () -> Unit,) {
+    CenterAlignedTopAppBar(title = { Text(text = title) }, navigationIcon = {
+        IconButton(onClick = { onCancelled() }) {
+            Icon(
+                imageVector = Icons.Default.ArrowBack,
+                contentDescription = null
+            )
+        }
+    })
+
+
+}
