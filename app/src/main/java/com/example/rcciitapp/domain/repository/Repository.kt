@@ -9,4 +9,5 @@ interface Repository {
     suspend fun getCourses(): Flow<Resource<Courses>>
     suspend fun getFaculty(stream: String): Flow<Resource<FacultyResponse>>
     suspend fun deleteFaculty(id: String): Flow<Resource<DeleteFacultyResponse>>
+    suspend fun editFaculty(editFacultyBody: EditFacultyBody): Flow<Resource<EditFaculty>>
 }

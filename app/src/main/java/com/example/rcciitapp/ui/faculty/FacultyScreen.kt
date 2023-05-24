@@ -174,7 +174,8 @@ fun FacultySection(
                                     faculty.email,
                                     faculty.dob,
                                     faculty.degree,
-                                    faculty.designation
+                                    faculty.designation,
+                                    faculty.stream
                                 )
                             )
 

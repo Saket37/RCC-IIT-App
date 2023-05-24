@@ -82,7 +82,7 @@ fun Navigation(
                     }
                 }
             }
-            composable(route = Destination.EditFaculty.path + "/{_id}/{name}/{email}/{doj}/{degree}/{designation}",
+            composable(route = Destination.EditFaculty.path + "/{_id}/{name}/{email}/{doj}/{degree}/{designation}/{stream}",
                 arguments = listOf(
                     navArgument("_id") {
                         type = NavType.StringType
@@ -107,6 +107,10 @@ fun Navigation(
                     navArgument("designation") {
                         type = NavType.StringType
                         nullable = false
+                    },
+                    navArgument("stream") {
+                        type = NavType.StringType
+                        nullable = false
                     }
                 )
 
@@ -117,6 +121,7 @@ fun Navigation(
                 val facultyDoj = backStackEntry.arguments?.getString("doj")
                 val facultyDegree = backStackEntry.arguments?.getString("degree")
                 val facultyDesignation = backStackEntry.arguments?.getString("designation")
+                val facultyStream = backStackEntry.arguments?.getString("stream")
 
                 Log.d("FACULTY_ID", facultyId.toString())
                 Box(
@@ -128,15 +133,18 @@ fun Navigation(
                                 facultyEmail?.let { email ->
                                     facultyDoj?.let { doj ->
                                         facultyDesignation?.let { designation ->
-                                            EditFacultyScreen(
-                                                id = id,
-                                                name = name,
-                                                email = email,
-                                                doj = doj,
-                                                degree = it,
-                                                designation = designation,
-                                                navController = navController
-                                            )
+                                            facultyStream?.let { stream ->
+                                                EditFacultyScreen(
+                                                    id = id,
+                                                    name = name,
+                                                    email = email,
+                                                    doj = doj,
+                                                    degree = it,
+                                                    designation = designation,
+                                                    stream = stream,
+                                                    navController = navController
+                                                )
+                                            }
                                         }
                                     }
                                 }

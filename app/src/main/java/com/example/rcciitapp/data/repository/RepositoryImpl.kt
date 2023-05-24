@@ -45,4 +45,14 @@ class RepositoryImpl @Inject constructor(private val apiService: ApiService) : R
             emit(Resource.error(null, e.message.toString()))
         }
     }
+
+    override suspend fun editFaculty(editFacultyBody: EditFacultyBody): Flow<Resource<EditFaculty>> =
+        flow {
+            try {
+                val resp = apiService.editFaculty(editFacultyBody)
+                emit(Resource.success(resp))
+            } catch (e: Exception) {
+                emit(Resource.error(null, e.message.toString()))
+            }
+        }
 }

@@ -23,4 +23,9 @@ interface ApiService {
     suspend fun deleteFaculty(
         @Path("id") id: String
     ): DeleteFacultyResponse
+
+    @PATCH("update/{id}")
+    suspend fun editFaculty(
+        @Body editFacultyBody: EditFacultyBody
+    ): EditFaculty
 }

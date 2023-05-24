@@ -31,6 +31,7 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.navigation.NavHostController
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
+import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.ui.components.EditFacultyAppBar
 import com.example.rcciitapp.ui.theme.md_theme_light_surface
 import com.example.rcciitapp.utils.FacultyUpdateEvent
@@ -46,7 +47,7 @@ fun EditFacultyScreen(
     email: String,
     doj: String,
     degree: String,
-    designation: String
+    designation: String, stream: String
 
 ) {
     val viewModel: FacultyScreenViewModel = hiltViewModel()
@@ -67,7 +68,14 @@ fun EditFacultyScreen(
             EditFacultyAppBar(
                 title = "Edit",
                 onCancelled = { navController.popBackStack() },
-                onSaveClicked = {})
+                onSaveClicked = {
+                    viewModel.patchUpdateFaculty()
+                    navController.navigate(
+                        Destination.Faculty.withArgs(
+                            stream
+                        )
+                    )
+                })
         },
     ) { innerPadding ->
         Box(
