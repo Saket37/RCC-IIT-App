@@ -60,9 +60,13 @@ fun FacultyScreen(
     Scaffold(topBar = {
         FacultyAppBar(
             title = "Faculty",
-            onCancelled = { },
+            onCancelled = { navController.popBackStack() },
             onAddClicked = {
-                navController.navigate(Destination.AddFaculty.path)
+                navController.navigate(
+                    Destination.AddFaculty.withArgs(
+                        stream
+                    )
+                )
             },
             topAppBarState = topAppBarState, isAdminLoggedIn = isAdminLoggedIn
         )
@@ -158,7 +162,7 @@ fun FacultySection(
                     SwipeToDismiss(
                         directions = setOf(
                             DismissDirection.StartToEnd,
-                             DismissDirection.EndToStart
+                            DismissDirection.EndToStart
                         ),
                         dismissThresholds = { FractionalThreshold(0.15f) },
                         state = dismissState,
