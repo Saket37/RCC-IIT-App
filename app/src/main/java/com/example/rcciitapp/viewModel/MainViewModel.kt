@@ -36,14 +36,14 @@ class MainViewModel @Inject constructor(
             _homeUiState.value =
                 _homeUiState.value.copy(isLoading = false)
             observeConnectivity()
-            /*val isAdminLoggedIn =sharedPreferenceManager.isAdminLoggedIn()
+            val isAdminLoggedIn =sharedPreferenceManager.isAdminLoggedIn()
             _homeUiState.value =
-                _homeUiState.value.copy(isAdminLoggedIn = isAdminLoggedIn)*/
-            dataStoreManager.isAdminLoggedIn().collectLatest { bool ->
+                _homeUiState.value.copy(isAdminLoggedIn = isAdminLoggedIn)
+            /*dataStoreManager.isAdminLoggedIn().collectLatest { bool ->
                 _homeUiState.value =
                     _homeUiState.value.copy(isAdminLoggedIn = bool)
 
-            }
+            }*/
         }
     }
 

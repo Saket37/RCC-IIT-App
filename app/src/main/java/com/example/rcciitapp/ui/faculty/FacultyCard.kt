@@ -29,7 +29,6 @@ fun FacultyCard(
     modifier: Modifier = Modifier,
     faculty: com.example.rcciitapp.data.remote.entity.Faculty,
     onNavigate: () -> Unit,
-
     ) {
     Card(
         modifier = modifier
@@ -46,7 +45,7 @@ fun FacultyCard(
             horizontalArrangement = Arrangement.SpaceAround,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            FacultyProfileImage(modifier = Modifier.padding(6.dp), image =  R.drawable.cse_anirban)
+            FacultyProfileImage(modifier = Modifier.padding(6.dp), image =  R.drawable.ic_baseline_person_pin_24)
             Divider(
                 modifier = Modifier
                     .fillMaxHeight()

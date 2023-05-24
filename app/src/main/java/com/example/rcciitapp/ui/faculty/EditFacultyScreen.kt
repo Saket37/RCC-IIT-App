@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import coil.compose.SubcomposeAsyncImage
 import coil.request.ImageRequest
@@ -36,7 +37,7 @@ import com.example.rcciitapp.ui.components.EditFacultyAppBar
 import com.example.rcciitapp.ui.theme.md_theme_light_surface
 import com.example.rcciitapp.utils.FacultyUpdateEvent
 import com.example.rcciitapp.viewModel.EditFacultyUiState
-import com.example.rcciitapp.viewModel.FacultyScreenViewModel
+import com.example.rcciitapp.viewModel.EditFacultyViewModel
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLifecycleComposeApi::class)
 @Composable
@@ -50,10 +51,10 @@ fun EditFacultyScreen(
     designation: String, stream: String
 
 ) {
-    val viewModel: FacultyScreenViewModel = hiltViewModel()
+    val viewModel: EditFacultyViewModel = hiltViewModel()
     Log.d("EditFacultyScreen_id", id)
     //viewModel.fetchEditFacultyData(id = id)
-    val uiState = viewModel.editUiState.collectAsState()
+    val uiState = viewModel.editUiState.collectAsStateWithLifecycle()
     uiState.value.name = name
     uiState.value.degree = degree
     uiState.value.email = email

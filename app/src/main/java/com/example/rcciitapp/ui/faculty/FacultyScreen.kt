@@ -62,11 +62,13 @@ fun FacultyScreen(
             title = "Faculty",
             onCancelled = { navController.popBackStack() },
             onAddClicked = {
-                navController.navigate(
-                    Destination.AddFaculty.withArgs(
-                        stream
+                if (isAdminLoggedIn) {
+                    navController.navigate(
+                        Destination.AddFaculty.withArgs(
+                            stream
+                        )
                     )
-                )
+                }
             },
             topAppBarState = topAppBarState, isAdminLoggedIn = isAdminLoggedIn
         )
@@ -142,7 +144,18 @@ fun FacultySection(
                             }
 
                             DismissValue.DismissedToStart -> {
-                                navController.navigate(Destination.EditFaculty.withArgs(faculty._id))
+
+                                navController.navigate(
+                                    Destination.EditFaculty.withArgs(
+                                        faculty._id,
+                                        faculty.name,
+                                        faculty.email,
+                                        faculty.dob,
+                                        faculty.degree,
+                                        faculty.designation,
+                                        faculty.stream
+                                    )
+                                )
                                 // Do Something when swipe End To Start
                                 true
                             }
