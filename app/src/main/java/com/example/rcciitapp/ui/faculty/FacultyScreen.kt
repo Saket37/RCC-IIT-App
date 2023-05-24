@@ -56,7 +56,7 @@ fun FacultyScreen(
     val scope = rememberCoroutineScope()
     val topAppBarState = rememberTopAppBarState()
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(topAppBarState)
-    //val isAdminLoggedIn = viewModel.isAdminLoggedIn.collectAsStateWithLifecycle().value
+    val isAdminLoggedIn = viewModel.isAdminLoggedIn.collectAsStateWithLifecycle().value
     Scaffold(topBar = {
         FacultyAppBar(
             title = "Faculty",
@@ -64,7 +64,7 @@ fun FacultyScreen(
             onAddClicked = {
                 navController.navigate(Destination.AddFaculty.path)
             },
-            topAppBarState = topAppBarState, isAdminLoggedIn = true
+            topAppBarState = topAppBarState, isAdminLoggedIn = isAdminLoggedIn
         )
     }) { innerPadding ->
         Box(

@@ -14,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import com.example.rcciitapp.ui.courses.Course
+import com.example.rcciitapp.ui.faculty.AddScreen
 import com.example.rcciitapp.ui.faculty.EditFacultyScreen
 import com.example.rcciitapp.ui.faculty.FacultyScreen
 import com.example.rcciitapp.ui.gallery.GalleryScreen
@@ -31,33 +32,26 @@ fun Navigation(
         navigation(startDestination = Destination.RCC.path, route = Destination.Home.path) {
             composable(route = Destination.RCC.path) {
                 RccHome(
-                    modifier = Modifier
-                        .fillMaxSize()
+                    modifier = Modifier.fillMaxSize()
                 )
             }
             composable(route = Destination.Update.path) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                    modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
                 ) {
                     Updates()
                 }
             }
             composable(route = Destination.Courses.path) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                    modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
                 ) {
                     Course(navController = navController)
                 }
             }
             composable(route = Destination.Gallery.path) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    contentAlignment = Alignment.Center
+                    modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
                 ) {
                     GalleryScreen()
                 }
@@ -71,48 +65,39 @@ fun Navigation(
             ) {
                 val stream = it.arguments?.getString("stream")
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                 ) {
                     stream?.let { it1 ->
                         FacultyScreen(
-                            stream = it1,
-                            navController = navController
+                            stream = it1, navController = navController
                         )
                     }
                 }
             }
-            composable(route = Destination.EditFaculty.path + "/{_id}/{name}/{email}/{doj}/{degree}/{designation}/{stream}",
-                arguments = listOf(
-                    navArgument("_id") {
-                        type = NavType.StringType
-                        nullable = false
-                    },
-                    navArgument("name") {
-                        type = NavType.StringType
-                        nullable = false
-                    },
-                    navArgument("email") {
-                        type = NavType.StringType
-                        nullable = false
-                    },
-                    navArgument("doj") {
-                        type = NavType.StringType
-                        nullable = false
-                    },
-                    navArgument("degree") {
-                        type = NavType.StringType
-                        nullable = false
-                    },
-                    navArgument("designation") {
-                        type = NavType.StringType
-                        nullable = false
-                    },
-                    navArgument("stream") {
-                        type = NavType.StringType
-                        nullable = false
-                    }
-                )
+            composable(
+                route = Destination.EditFaculty.path + "/{_id}/{name}/{email}/{doj}/{degree}/{designation}/{stream}",
+                arguments = listOf(navArgument("_id") {
+                    type = NavType.StringType
+                    nullable = false
+                }, navArgument("name") {
+                    type = NavType.StringType
+                    nullable = false
+                }, navArgument("email") {
+                    type = NavType.StringType
+                    nullable = false
+                }, navArgument("doj") {
+                    type = NavType.StringType
+                    nullable = false
+                }, navArgument("degree") {
+                    type = NavType.StringType
+                    nullable = false
+                }, navArgument("designation") {
+                    type = NavType.StringType
+                    nullable = false
+                }, navArgument("stream") {
+                    type = NavType.StringType
+                    nullable = false
+                })
 
             ) { backStackEntry ->
                 val facultyId = backStackEntry.arguments?.getString("_id")
@@ -156,12 +141,21 @@ fun Navigation(
 
 
 
-            composable(route = Destination.AddFaculty.path) {
+            composable(route = Destination.AddFaculty.path + "/{stream}",
+                arguments = listOf(navArgument("stream") {
+                    type = NavType.StringType
+                    nullable = false
+                })
+            ) {
+                val stream = it.arguments?.getString("stream")
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize(),
+                    modifier = Modifier.fillMaxSize(),
                 ) {
-                    //EditFacultyScreen()
+                    stream?.let { stream ->
+                        AddScreen(
+                            stream = stream, navController = navController
+                        )
+                    }
                 }
             }
             composable(Destination.Placement.path) {

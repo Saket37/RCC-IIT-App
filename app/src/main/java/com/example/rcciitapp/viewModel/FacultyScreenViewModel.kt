@@ -7,6 +7,7 @@ import com.example.rcciitapp.data.remote.entity.DeleteFacultyResponse
 import com.example.rcciitapp.data.remote.entity.EditFacultyBody
 import com.example.rcciitapp.data.remote.entity.Faculty
 import com.example.rcciitapp.domain.repository.Repository
+import com.example.rcciitapp.utils.DataStoreManager
 import com.example.rcciitapp.utils.FacultyEvent
 import com.example.rcciitapp.utils.FacultyUpdateEvent
 import com.example.rcciitapp.utils.Status
@@ -41,13 +42,26 @@ data class DeleteFacultyUiState(
 )
 
 @HiltViewModel
-class FacultyScreenViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
+class FacultyScreenViewModel @Inject constructor(
+    private val repository: Repository,
+    private val dataStoreManager: DataStoreManager,
+) : ViewModel() {
     private val _uiState = MutableStateFlow(FacultyScreenUiState())
     val uiState get() = _uiState
-
+    private val _isAdminLoggedIn = MutableStateFlow(false)
+    val isAdminLoggedIn get() = _isAdminLoggedIn
     private val _editUiState = MutableStateFlow(EditFacultyUiState())
     val editUiState get() = _editUiState
     private val edit = mutableListOf<Faculty>()
+
+    init {
+        viewModelScope.launch {
+            dataStoreManager.isAdminLoggedIn().collectLatest { bool ->
+                _isAdminLoggedIn.value = bool
+            }
+        }
+
+    }
 
     private val _deleteUiState = MutableStateFlow(DeleteFacultyUiState())
     fun fetch(stream: String) {
@@ -180,7 +194,7 @@ class FacultyScreenViewModel @Inject constructor(private val repository: Reposit
 
     }
 
-     fun patchUpdateFaculty() {
+    fun patchUpdateFaculty() {
         _editUiState.value = _editUiState.value.copy(isLoading = true)
         viewModelScope.launch {
             val data = _editUiState.value.name?.let { name ->
