@@ -13,6 +13,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
+import com.example.rcciitapp.ui.ContactUsScreen
 import com.example.rcciitapp.ui.courses.Course
 import com.example.rcciitapp.ui.faculty.AddScreen
 import com.example.rcciitapp.ui.faculty.EditFacultyScreen
@@ -161,6 +162,13 @@ fun Navigation(
             composable(Destination.Placement.path) {
                 Box(modifier = Modifier.fillMaxSize()) {
                     PlacementScreen(
+                        navController = navController
+                    )
+                }
+            }
+            composable(Destination.ContactUs.path){
+                Box(modifier = Modifier.fillMaxSize()){
+                    ContactUsScreen(
                         navController = navController
                     )
                 }

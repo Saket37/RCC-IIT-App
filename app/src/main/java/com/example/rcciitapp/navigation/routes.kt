@@ -31,6 +31,7 @@ sealed class Destination(
             }
         }
     }
+
     fun args(vararg args: String): String {
         return buildString {
             append(path)
@@ -39,6 +40,7 @@ sealed class Destination(
             }
         }
     }
+
     object Home : Destination("rccHome", isRootDestination = true)
     object RCC : Destination(
         path = "home",
@@ -72,5 +74,6 @@ sealed class Destination(
     object AddFaculty : Destination(path = "addFaculty", isRootDestination = false)
     object EditFaculty : Destination(path = "editFaculty", isRootDestination = false)
     object Placement : Destination(path = "placement", isRootDestination = false)
+    object ContactUs : Destination(path = "contactUs", isRootDestination = false)
     //object AdminLogin : Destination(path = "adminLogin", isRootDestination = false)
 }

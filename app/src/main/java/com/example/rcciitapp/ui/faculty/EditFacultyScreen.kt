@@ -67,7 +67,13 @@ fun EditFacultyScreen(
         topBar = {
             EditFacultyAppBar(
                 title = "Edit",
-                onCancelled = { navController.popBackStack() },
+                onCancelled = {
+                    navController.navigate(
+                        Destination.Faculty.withArgs(
+                            stream
+                        )
+                    )
+                },
                 onSaveClicked = {
                     viewModel.patchUpdateFaculty()
                     navController.navigate(

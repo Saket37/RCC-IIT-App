@@ -25,19 +25,22 @@ fun ImageSlider(modifier: Modifier = Modifier) {
     Column {
         val imageList = listOf(
             R.drawable.ic_rcc_1,
+            R.drawable.gallery_1,
+            R.drawable.gallery_4,
             R.drawable.ic_rcc_2,
             R.drawable.ic_rcc_3,
             R.drawable.ic_rcc_4,
-            R.drawable.ic_rcc_5
+            R.drawable.ic_rcc_5,
+            R.drawable.gallery_2
         )
         val pagerState = rememberPagerState()
         val coroutineScope = rememberCoroutineScope()
-        HorizontalPager(count = 5, state = pagerState) { page ->
+        HorizontalPager(count = imageList.size, state = pagerState) { page ->
             Column() {
                 Image(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(220.dp),
+                        .height(300.dp),
                     painter = painterResource(id = imageList[page]),
                     contentDescription = null
                 )

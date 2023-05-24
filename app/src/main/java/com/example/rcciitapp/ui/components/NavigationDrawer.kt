@@ -110,7 +110,7 @@ fun DrawerContent(
                 textAlign = TextAlign.Center,
                 modifier = Modifier
                     .padding(16.dp)
-                    .clickable { })
+                    .clickable {onNavigate(Destination.ContactUs) })
         }
 
         /*GlideImage(

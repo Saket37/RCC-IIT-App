@@ -137,11 +137,11 @@ fun FacultySection(
                                 true
                             }
 
-//                            DismissValue.DismissedToStart -> {
-//                                navController.navigate(Destination.EditFaculty.withArgs(faculty._id))
-//                                // Do Something when swipe End To Start
-//                                true
-//                            }
+                            DismissValue.DismissedToStart -> {
+                                navController.navigate(Destination.EditFaculty.withArgs(faculty._id))
+                                // Do Something when swipe End To Start
+                                true
+                            }
 
                             else -> {
                                 false
@@ -158,7 +158,7 @@ fun FacultySection(
                     SwipeToDismiss(
                         directions = setOf(
                             DismissDirection.StartToEnd,
-                            // DismissDirection.EndToStart
+                             DismissDirection.EndToStart
                         ),
                         dismissThresholds = { FractionalThreshold(0.15f) },
                         state = dismissState,
