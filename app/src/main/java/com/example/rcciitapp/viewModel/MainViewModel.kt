@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.rcciitapp.observeconnectivity.ConnectionState
 import com.example.rcciitapp.observeconnectivity.ConnectivityObserver
 import com.example.rcciitapp.utils.DataStoreManager
-import com.example.rcciitapp.utils.LogoutEvent
+import com.example.rcciitapp.viewModel.event.LogoutEvent
 import com.example.rcciitapp.utils.SharedPreferenceManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -50,6 +50,7 @@ class MainViewModel @Inject constructor(
     private fun logout() {
         viewModelScope.launch {
             dataStoreManager.deleteUserData()
+            sharedPreferenceManager.deleteUserData()
             _homeUiState.value =
                 _homeUiState.value.copy(isAdminLoggedIn = false)
         }

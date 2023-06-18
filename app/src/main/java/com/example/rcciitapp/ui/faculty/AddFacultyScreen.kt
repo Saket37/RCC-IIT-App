@@ -21,7 +21,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.ui.components.EditFacultyAppBar
-import com.example.rcciitapp.utils.AddFacultyEvent
+import com.example.rcciitapp.viewModel.event.AddFacultyEvent
 import com.example.rcciitapp.viewModel.AddFacultyUiState
 import com.example.rcciitapp.viewModel.AddFacultyViewModel
 

@@ -3,7 +3,7 @@ package com.example.rcciitapp.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rcciitapp.domain.repository.Repository
-import com.example.rcciitapp.utils.AddFacultyEvent
+import com.example.rcciitapp.viewModel.event.AddFacultyEvent
 import com.example.rcciitapp.utils.DataStoreManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

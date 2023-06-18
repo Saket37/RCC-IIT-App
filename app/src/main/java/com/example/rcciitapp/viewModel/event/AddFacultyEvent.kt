@@ -1,4 +1,4 @@
-package com.example.rcciitapp.utils
+package com.example.rcciitapp.viewModel.event
 
 sealed class AddFacultyEvent {
     class EmailChanged(val email: String) : AddFacultyEvent()

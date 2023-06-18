@@ -1,15 +1,18 @@
 package com.example.rcciitapp.viewModel
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rcciitapp.data.remote.entity.Login
 import com.example.rcciitapp.domain.repository.Repository
 import com.example.rcciitapp.model.AdminAuthState
-import com.example.rcciitapp.utils.AdminAuthEvent
+import com.example.rcciitapp.viewModel.event.AdminAuthEvent
 import com.example.rcciitapp.utils.DataStoreManager
 import com.example.rcciitapp.utils.SharedPreferenceManager
 import com.example.rcciitapp.utils.Status
+import com.example.rcciitapp.worker.ScheduleDataDeletionWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +25,8 @@ import javax.inject.Inject
 class AuthViewModel @Inject constructor(
     private val repository: Repository,
     private val dataStore: DataStoreManager,
-    private val sharedPreferenceManager: SharedPreferenceManager
+    private val sharedPreferenceManager: SharedPreferenceManager,
+    private val scheduleDataDeletionWorker: ScheduleDataDeletionWorker
 ) : ViewModel() {
     private val _authUiState = MutableStateFlow(AdminAuthState())
     val authUiState get() = _authUiState
@@ -42,6 +46,7 @@ class AuthViewModel @Inject constructor(
         _authUiState.value = _authUiState.value.copy(email = email)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun authenticate() {
         _authUiState.value = _authUiState.value.copy(isLoading = true)
         viewModelScope.launch(Dispatchers.IO) {
@@ -74,6 +79,7 @@ class AuthViewModel @Inject constructor(
                                             it.user.name,
                                             it.user._id
                                         )
+                                        scheduleDataDeletionWorker.deletePreferencesData()
                                         _isLoggedIn.value = true
                                         _authUiState.value =
                                             _authUiState.value.copy(isLoading = false)

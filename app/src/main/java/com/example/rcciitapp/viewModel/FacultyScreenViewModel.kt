@@ -4,10 +4,10 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.rcciitapp.data.remote.entity.DeleteFacultyResponse
-import com.example.rcciitapp.data.remote.entity.EditFacultyBody
 import com.example.rcciitapp.data.remote.entity.Faculty
 import com.example.rcciitapp.domain.repository.Repository
 import com.example.rcciitapp.utils.*
+import com.example.rcciitapp.viewModel.event.FacultyEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest

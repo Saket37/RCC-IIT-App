@@ -20,7 +20,7 @@ import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.rcciitapp.MainActivity
 import com.example.rcciitapp.model.AdminAuthState
-import com.example.rcciitapp.utils.AdminAuthEvent
+import com.example.rcciitapp.viewModel.event.AdminAuthEvent
 import com.example.rcciitapp.viewModel.AuthViewModel
 
 /**

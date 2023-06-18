@@ -39,7 +39,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.ui.components.FacultyAppBar
-import com.example.rcciitapp.utils.FacultyEvent
+import com.example.rcciitapp.viewModel.event.FacultyEvent
 import com.example.rcciitapp.viewModel.FacultyScreenUiState
 import com.example.rcciitapp.viewModel.FacultyScreenViewModel
 
@@ -87,7 +87,7 @@ fun FacultyScreen(
             //viewModel.selectCourse(courseId)
             FacultySection(
                 uiState = viewModel.uiState.collectAsStateWithLifecycle().value,
-                isAdminLoggedIn = true,
+                isAdminLoggedIn = isAdminLoggedIn,
                 handleEvent = viewModel::handleAuthEvent,
                 navController = navController
             )

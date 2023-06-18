@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.rcciitapp.data.remote.entity.EditFacultyBody
 import com.example.rcciitapp.domain.repository.Repository
 import com.example.rcciitapp.utils.DataStoreManager
-import com.example.rcciitapp.utils.FacultyUpdateEvent
+import com.example.rcciitapp.viewModel.event.FacultyUpdateEvent
 import com.example.rcciitapp.utils.SharedPreferenceManager
 import com.example.rcciitapp.utils.Status
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -22,7 +22,7 @@ import com.example.rcciitapp.ui.components.ConnectivityStatus
 import com.example.rcciitapp.ui.components.DrawerContent
 import com.example.rcciitapp.ui.components.RccTopAppBar
 import com.example.rcciitapp.ui.theme.RCCIITAppTheme
-import com.example.rcciitapp.utils.LogoutEvent
+import com.example.rcciitapp.viewModel.event.LogoutEvent
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)

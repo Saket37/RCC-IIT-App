@@ -35,6 +35,7 @@ class MainActivity : ComponentActivity() {
         installSplashScreen().apply {
             setKeepOnScreenCondition { viewModel.homeUiState.value.isLoading }
         }
+        val workRequest = 
         setContent {
             RCCIITAppTheme {
                 // A surface container using the 'background' color from the theme

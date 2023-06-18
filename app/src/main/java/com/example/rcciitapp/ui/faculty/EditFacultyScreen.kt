@@ -35,7 +35,7 @@ import coil.request.ImageRequest
 import com.example.rcciitapp.navigation.Destination
 import com.example.rcciitapp.ui.components.EditFacultyAppBar
 import com.example.rcciitapp.ui.theme.md_theme_light_surface
-import com.example.rcciitapp.utils.FacultyUpdateEvent
+import com.example.rcciitapp.viewModel.event.FacultyUpdateEvent
 import com.example.rcciitapp.viewModel.EditFacultyUiState
 import com.example.rcciitapp.viewModel.EditFacultyViewModel
 
